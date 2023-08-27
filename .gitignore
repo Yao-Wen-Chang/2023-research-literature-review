@@ -1,0 +1,18 @@
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.toc
+*.gz
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.dvi
+
+# LaTeX generated PDFs
+# *.pdf
+
+# LaTeX auto-generated files
+_auto
