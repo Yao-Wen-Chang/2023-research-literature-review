@@ -1,6 +1,13 @@
 \section{Attack Surface and Impact}
 
+\subsection{Source Code Repository}
+Obtain Git Repository credentials by dumping the environment Variables. Then, user
+the stolen secrets to access the Repository and modify the CI/CD configuration.
+Finally, the code will successfully be injected into the code base, and affects
+downstream users.
 
+\subsection{Build/Test}
+\subsection{Deploy}
 Java Virtual Machine (JVM) executes Java bytecode and provides strong safety
 guarantees. However, the unsafe API, "sun.misc.Unsafe", will cause serious 
 security issue if it is misused by the developers. The research \cite{mastrangelo2015use} 

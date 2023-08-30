@@ -1,13 +1,28 @@
 \documentclass[twocolumn]{article}
 % \usepackage{natbib}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{geometry}
 
-\begin{document}
+% Define the title page layout
+\geometry{margin=1in}
+\titleformat{\section}[block]{\normalfont\bfseries}{\thesection}{1em}{}
+\renewcommand{\maketitlehooka}{\centering}
+
+
 % Title Page Information
 \title{Research Proposals}
 \author{Yao-Wen Chang\\Student ID: 1346258}
 \date{Submission Date: September 17, 2023}
+\newcommand{\supervisor}{Supervisor: Christoph Treude}
+\newcommand{\industrialmentor}{Industry Mentor: Behnaz Hassanshahi (Oracle Labs, Australia)}
+\newcommand{\wordcount}{Word Count: X words} % Replace X with the actual word count
+
+
+\begin{document}
 
 \include{title.tex}
+
 \input{abstract.tex}
 \input{introduction.tex}
 \input{section2.tex}
