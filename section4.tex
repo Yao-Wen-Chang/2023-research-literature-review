@@ -10,7 +10,23 @@ Providing cryptographic hashes if the software packages is of significance to
 verify the software's integrity \cite{levy2003poisoning}.
 Signing the releases of the packages by the providers with the public-key enable the 
 users to verify the 
+\subsection{ U.S. Department of Defense Recommend \cite{DoDDefCI/CD2023}}
+\begin{enumerate}
+    \item \textbf{Zero Trust Approach} \\
+        No user, endpoint device or process is fully trusted.
+    \item \textbf{Strong Cryptographic Algorithm} \\
+        Avoid using outdated crytographic algorithm which poses a threat to CI/CD pipelines.
+        The threat includes sensitive data exposure and keys generated across the CI/CD 
+        pipeline. 
+    \item \textbf{Minimize the Use of Long-Term Credentials}
+    \item \textbf{Add Signature to CI/CD Configuration and Cerify It} \\
+        Ensure the code change is continuously signed, and the signaature is verified throughout
+        CI/CD process. If the signing identity itself is compromised, it undermines trust.
+    \item \textbf{Two-Person Rules for all Code Updates}    
+        The developer checks in the code which should be reviewed and approved by another 
+        developer. 
 
+\end{enumerate}
 Some of the projects aims at providing single solution that conﬂates multiple objectives 
 \cite{melara2022software}.
 
