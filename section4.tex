@@ -10,19 +10,124 @@ Providing cryptographic hashes if the software packages is of significance to
 verify the software's integrity \cite{levy2003poisoning}.
 Signing the releases of the packages by the providers with the public-key enable the 
 users to verify the 
+
+% Decide whether to include a reference for each case and decide combine attack surface to this section
+\subsection{OWASP Top 10 CI/CD Risks\cite{OWASP2023}}
+\begin{enumerate}
+    % 1
+    \item \textbf{Insufficient Flow Control Mechanisms}
+    
+    \textbf{Definition: }The attacker obtain permissions to a system within CI/CD process.
+    The system did not provide sufficient enforcement for approval and reviewed machnisms.
+
+    \textbf{Impact: }
+        \begin{itemize}
+            \item The attackers can push code to a repository branch, which is automatically
+            deployed to production and manually trigger by the attackers.
+            \item Upload an artifact to the artifact repository, such as a package or container
+            , in the guise of a legitimate artifact created by the build environment and picked 
+            up by a deploy pipeline and deployed to production.
+        \end{itemize}
+    
+    \textbf{Remediation:}
+    \begin{itemize}
+        \item Configure strict branch protection rules
+        \item Limit the usage of auto-merge rules
+        \item Prevent drifts and inconsistencies between the running code in production and its 
+        CI/CD origin.
+    \end{itemize}
+    % 2
+    \item \textbf{Inadequate identity and Access Management}
+    
+    \textbf{Definition: }This risks stem from the difficulties in managing the vast amount of
+    identities. The identies are indentified through personal access token, e-mail, password and so on.
+        \begin{itemize}
+            \item Overly permissive identities
+            \item Stale identies - Some identies that are not active or no longer require access but have
+            no had their account deactivated.
+            \item External indentities - (1) Employees registered with email from a domain not managed by 
+            the organization (2) External collaborators are outside of the organization's control.
+        \end{itemize}
+
+    \textbf{Impact: }
+        \begin{itemize}
+            \item Overly permissive accounts leads to a state where the attacker can compromise any user
+            account on any system within the CI/CD pipeline.
+        \end{itemize}
+    \textbf{Remediation:}
+        \begin{itemize}
+            \item Continuously analyzed and mapped the identies' account to their permissions, and removed the 
+            the permissions not necessary to the ongoing work.
+            \item Ensure the identies are aligned to the principle of least privilege, and pre-defined a expiry date 
+            for the identies' permissions.
+            \item Prevent the emplyees from using personal email addresses.
+            \item Avoid the shared accounts. Created the dedicated accounts for each specific context.
+        \end{itemize}
+    % 3
+    \item \textbf{Dependency Chain Abuse}
+
+    \textbf{Definition: }
+        Dependency chain abuse refer to an attacker's ability to abuse flaws relating to how 
+        engineering workstations and build environments fetch code dependencies. The build system download the 
+        malicious package instead of the one intended to be pull. There are four scenarios where the developers might be tricked.
+        \begin{itemize}
+            \item Dependency confusion - Publication of malicious packages in public repositories with the same 
+            names as those private one.
+            \item Obtain the control of the account of the package maintainer in order to upload the malicious version.
+            \item Typosquatting - Publication of a similar names to those popular packages.
+            \item Brandjacking - The malicious packages were consistent with the naming convention with the trusted brand.
+        \end{itemize}
+    \textbf{Impact: }
+        Once the malicious code is running, it can be leveraged for credentials theft and move horizontally through a system and 
+        network.
+    \textbf{Remediation:}
+        \begin{itemize}
+            \item Ensure the packages are not directly pulled through the internet, but through an internal proxy. And 
+            disallow pulling directly from external repositories.
+            \item Verify checksum and signature of the pulled packages.
+            \item Lock the packages' version instead of pulling the latest version.
+            \item Installation scripts should not access to sentitive resources in the build process.
+            \item Always ensure projects contain configuration files of package managers.
+            \item The most important is deploy a quick detection, monitoring and mitigation to avoid further compromise.
+        \end{itemize}
+    % 4
+    \item \textbf{Inadequate identity and Access Management}
+
+    \textbf{Definition: }
+
+    \textbf{Impact: }
+        \begin{itemize}
+            \item
+        \end{itemize}
+    \textbf{Remediation:}
+        \begin{itemize}
+            \item
+        \end{itemize}
+\end{enumerate}
+
+
+
 \subsection{ U.S. Department of Defense Recommend \cite{DoDDefCI/CD2023}}
 \begin{enumerate}
-    \item \textbf{Zero Trust Approach} \\
+    \item \textbf{Zero Trust Approach}
+    
         No user, endpoint device or process is fully trusted.
-    \item \textbf{Strong Cryptographic Algorithm} \\
+
+    \item \textbf{Strong Cryptographic Algorithm}
+    
         Avoid using outdated crytographic algorithm which poses a threat to CI/CD pipelines.
         The threat includes sensitive data exposure and keys generated across the CI/CD 
-        pipeline. 
+        pipeline.
+
     \item \textbf{Minimize the Use of Long-Term Credentials}
-    \item \textbf{Add Signature to CI/CD Configuration and Cerify It} \\
+
+    \item \textbf{Add Signature to CI/CD Configuration and Cerify It}
+
         Ensure the code change is continuously signed, and the signaature is verified throughout
         CI/CD process. If the signing identity itself is compromised, it undermines trust.
-    \item \textbf{Two-Person Rules for all Code Updates}    
+    
+    \item \textbf{Two-Person Rules for all Code Updates}
+
         The developer checks in the code which should be reviewed and approved by another 
         developer. 
 
