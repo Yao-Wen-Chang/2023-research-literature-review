@@ -54,6 +54,7 @@ users to verify the
             \item Overly permissive accounts leads to a state where the attacker can compromise any user
             account on any system within the CI/CD pipeline.
         \end{itemize}
+
     \textbf{Remediation:}
         \begin{itemize}
             \item Continuously analyzed and mapped the identies' account to their permissions, and removed the 
@@ -77,9 +78,11 @@ users to verify the
             \item Typosquatting - Publication of a similar names to those popular packages.
             \item Brandjacking - The malicious packages were consistent with the naming convention with the trusted brand.
         \end{itemize}
+
     \textbf{Impact: }
         Once the malicious code is running, it can be leveraged for credentials theft and move horizontally through a system and 
         network.
+
     \textbf{Remediation:}
         \begin{itemize}
             \item Ensure the packages are not directly pulled through the internet, but through an internal proxy. And 
@@ -117,6 +120,7 @@ users to verify the
             \item Able to ship code and artifacts futher down the pipeline, in the guise of legitimate 
             code build by the build process.
         \end{itemize}
+
     \textbf{Remediation:}
         \begin{itemize}
             \item Ensure that pipelines running unreviewed code are executed on isolated nodes to prevent
@@ -133,6 +137,7 @@ users to verify the
         \begin{itemize}
             \item
         \end{itemize}
+        
     \textbf{Remediation:}
         \begin{itemize}
             \item
