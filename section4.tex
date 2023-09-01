@@ -13,7 +13,7 @@ users to verify the
 
 % Decide whether to include a reference for each case and decide combine attack surface to this section
 \subsection{OWASP Top 10 CI/CD Risks\cite{OWASP2023}}
-\begin{enumerate}
+\begin{enumerate}[label=(\arabic*)]
     % 1
     \item \textbf{Insufficient Flow Control Mechanisms}
     
@@ -64,7 +64,7 @@ users to verify the
             \item Avoid the shared accounts. Created the dedicated accounts for each specific context.
         \end{itemize}
     % 3
-    \item \textbf{Dependency Chain Abuse}
+    \item \textbf{Dependency Chain Abuse}z
 
     \textbf{Definition: }
         Dependency chain abuse refer to an attacker's ability to abuse flaws relating to how 
@@ -91,7 +91,106 @@ users to verify the
             \item The most important is deploy a quick detection, monitoring and mitigation to avoid further compromise.
         \end{itemize}
     % 4
-    \item \textbf{Inadequate identity and Access Management}
+    \item \textbf{Poisoned Pipeline Execution (PPE)}
+
+    \textbf{Definition: }
+        The attacker access to the source control systems, but without access to the build environment, is
+        able to manipulate the build process by injecting malicious code into the build configuration file.
+        There are three type of PPE, direct PPE (D-PPE), indirect PPE (I-PPE) and public-PPE (3PE).
+
+        In the D-PPE scenario, the attackers modify the CI config files either by submitting a PR or directly pushing to the unprotected
+        remote branch. Since the CI pipeline execution is triggered by push or PR events, and the CI execution
+        is defined by CI Configuration file, the malicious commands run in the build node.
+
+        In the I-PPE scenario, the pipeline is configured to pull the CI configuration file from a protected 
+        branch or CI build is defined by the CI system instead of the in the file stored in the source code.
+        In those cases, the attackers can still injecting malicious code into the files referenced by the pipeline
+        configuration file.
+
+        In most cases, the permissions of the access to the repository are given to the orgamization
+        members. However, in the 3PE scenario, the public repositories are allowed the anonymous to 
+        contribute. If the CI pipline runs unreviewed code, the repository is susceptible to the 3PE.
+
+    \textbf{Impact: }
+        \begin{itemize}
+            \item Access to the secret available to the CI job.
+            \item Able to ship code and artifacts futher down the pipeline, in the guise of legitimate 
+            code build by the build process.
+        \end{itemize}
+    \textbf{Remediation:}
+        \begin{itemize}
+            \item Ensure that pipelines running unreviewed code are executed on isolated nodes to prevent
+            exposure of sensitive information.
+            \item To prevent the manipulation of the CI configuration file.
+            \item Remove permissions from the users that do not need them.
+        \end{itemize}
+    % 5
+    \item \textbf{Poisoned Pipeline Execution (PPE)}
+
+    \textbf{Definition: }
+
+    \textbf{Impact: }
+        \begin{itemize}
+            \item
+        \end{itemize}
+    \textbf{Remediation:}
+        \begin{itemize}
+            \item
+        \end{itemize}
+    % 6
+    \item \textbf{Poisoned Pipeline Execution (PPE)}
+
+    \textbf{Definition: }
+
+    \textbf{Impact: }
+        \begin{itemize}
+            \item
+        \end{itemize}
+    \textbf{Remediation:}
+        \begin{itemize}
+            \item
+        \end{itemize}
+    % 7
+    \item \textbf{Poisoned Pipeline Execution (PPE)}
+
+    \textbf{Definition: }
+
+    \textbf{Impact: }
+        \begin{itemize}
+            \item
+        \end{itemize}
+    \textbf{Remediation:}
+        \begin{itemize}
+            \item
+        \end{itemize}
+    % 8
+    \item \textbf{Poisoned Pipeline Execution (PPE)}
+
+    \textbf{Definition: }
+
+    \textbf{Impact: }
+        \begin{itemize}
+            \item
+        \end{itemize}
+    \textbf{Remediation:}
+        \begin{itemize}
+            \item
+        \end{itemize}
+    % 9
+    \item \textbf{Poisoned Pipeline Execution (PPE)}
+
+    \textbf{Definition: }
+
+    \textbf{Impact: }
+        \begin{itemize}
+            \item
+        \end{itemize}
+    \textbf{Remediation:}
+        \begin{itemize}
+            \item
+        \end{itemize}
+    % 10
+    \item \textbf{Poisoned Pipeline Execution (PPE)}
 
     \textbf{Definition: }
 
