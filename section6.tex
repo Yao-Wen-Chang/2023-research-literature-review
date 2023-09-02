@@ -1,13 +1,45 @@
-\section{Research Aims and Objectives}
+\section{Research Plan}
 
-% The research aim focus on what the research project is intended to achieve
-% The research objectives focus on how the aim will be achieved
-\subsection{Research Aims}
-This reseach is aim to contribute the Macaron framework, then examine Git repositories
-with this framework. The statistical conclusion from the examination will be futher 
-discussed. Also, the results will provide the developers and maintainers of the Git 
-repositories with a clear understanding of the vulnerabilities of their CI/CD pipelines
-configuration. Futhermore, the overview of the repositories that followed the SLSA requirements
-will be presented.
 
-\subsection{Research Objectives}
+\begin{table}[h]
+  \centering
+  \begin{adjustbox}{max width=\columnwidth}
+  \begin{tabular}{|p{3.2cm}|p{2.6cm}|p{2.6cm}|}
+      \hline
+      \textbf{Research Stage} & \textbf{Deadline} & \textbf{Challenges} \\
+      \hline
+      Data Collection & Month 1 & Finding relevant sources \\
+      \hline
+      Examine Repositories & Month 2 & Defining research questions \\
+      \hline
+
+  \end{tabular}
+  \end{adjustbox}
+\end{table}
+
+
+
+The project will involve three phases:
+
+
+1. Defining Unsafe Updates: Building on similar research conducted in the JavaScript 
+ecosystem (https://ieeexplore.ieee.org/document/8805698), the project's first phase 
+involves defining what an unsafe update means within the context of Python and/or Java. 
+Typically, an unsafe update could be one that introduces breaking changes, 
+negatively affects performance, opens up security vulnerabilities, 
+or adds incompatible API changes.
+
+
+2. Implementation of Safety Checks: Next, we will extend the Macaron framework's 
+functionality by implementing additional safety checks for these unsafe updates.
+Macaron is an extensible checker framework for supply chain security and CI/CD services,
+such as GitHub Actions. It allows adding new checks as Python modules and provides 
+intermediate representations specifically designed for CI/CD services to facilitate 
+verifying new properties.
+
+
+3. Empirical Analysis of Real-World Projects: With the safety checks in place, 
+the final phase of the project is an empirical study conducted on GitHub to ascertain
+the frequency of unsafe updates occurring in Python and/or Java projects.
+By understanding the 'how' and 'why' behind these updates, developers can adopt more 
+informed, proactive strategies in their coding practices.
