@@ -146,83 +146,105 @@ users to verify the
             \item Remove permissions from the users that do not need them.
         \end{itemize}
     % 5
-    \item \textbf{Poisoned Pipeline Execution (PPE)}
+    \item \textbf{Insufficient PBAC (Pipeline-Based Access Controls)}
 
     \textbf{Definition: }
+        Adversary is able to execute malicious code within the context of the pipeline.
+        The pipeline execution nodes have access to the resources or systems within and outside the 
+        execution environment.
 
     \textbf{Impact: }
-        \begin{itemize}
-            \item
-        \end{itemize}
+        Malicious code is able to run in the context of the pipeline. Probabily, this attack would lead to 
+        the exposure of the secret and confidential data.
         
     \textbf{Remediation:}
         \begin{itemize}
-            \item
+            \item Do not use shared node for pipeline with different levels of sensitivity.
+            \item Where applicable, run pipeline jobs on a separate, dedicated node.
         \end{itemize}
     % 6
-    \item \textbf{Poisoned Pipeline Execution (PPE)}
+    \item \textbf{Insufficient Credential Hygiene}
 
     \textbf{Definition: }
+        CI/CD environments are built of multiple systems communicating and authenticating against each other
+        through verifying the credentials. Insufficient credential Hygiene generally means the overly permissive
+        or the credentials are accidently existed in CI/CD pipelines and the code repositories. Some cases are
+        due to the unrotated credentials issue.  
 
     \textbf{Impact: }
-        \begin{itemize}
-            \item
-        \end{itemize}
+        The adversary obtains the credentials to deploy the malicious code and artifacts.
     \textbf{Remediation:}
         \begin{itemize}
-            \item
+            \item Conform to the least privilege rule abd granted the exact set of permission.
+            \item Avoid sharing the same sets of credentials across multiple contexts.
+            \item Using temporary credentials. If using static credentials, better periodically roate
+            all the static credentials and detect stale credentials.
+            \item Scoping the credentials to specific source IP to ensure the credentials cannot be used
+            outside the environment even if it is compromised.
+            \item Detect secrets pushed to the code repositories.
         \end{itemize}
     % 7
-    \item \textbf{Poisoned Pipeline Execution (PPE)}
+    \item \textbf{Insecure System Configuration}
 
     \textbf{Definition: }
+        Flaws in the security settings and configuration, which often results in easily compromised by The
+        attackers. For example, the overly permissive network access controls allow the attackers to interact
+        with different domain.
 
     \textbf{Impact: }
-        \begin{itemize}
-            \item
-        \end{itemize}
+        The flaws may be abused by the attacker to manipulate CI/CD flows, and obtain the sensitive tokens.
     \textbf{Remediation:}
         \begin{itemize}
-            \item
+            \item Ensure the network access the systems is aligned with the principle of least access.
+            \item Periodically review all system configuration.
+            \item Ensure permission to pipeline execution nodes follow the least privilege principle. 
         \end{itemize}
     % 8
-    \item \textbf{Poisoned Pipeline Execution (PPE)}
+    \item \textbf{Ungoverned Usage of 3rd Party Services}
 
-    \textbf{Definition: }
+    \textbf{Definition: }   
+        3rd party services are granted access to the organization's assets, such as the CI/CD systems.
 
     \textbf{Impact: }
-        \begin{itemize}
-            \item
-        \end{itemize}
+        Lack of governance and visibility around 3rd part might allow the write permission on the repository.
+        Then, the flaw is leveraged by the adversary to push the code to the repository.
     \textbf{Remediation:}
         \begin{itemize}
-            \item
+            \item Define the scoped context that the 3rd parties are able to access, and with strict ingress
+            and egress filter.
+            \item Established vetting procedures to verify the trustworthiness of the 3rd paries. Prior to being 
+            granted access to the environment, the approval of being granted to resources should be verified.
         \end{itemize}
     % 9
-    \item \textbf{Poisoned Pipeline Execution (PPE)}
+    \item \textbf{Improper Artifact Integrity Validation}
 
     \textbf{Definition: }
-
+        This flaw allow an attacker with access to the CI/CD process to push malicious code or artifacts down 
+        the pipeline.
     \textbf{Impact: }
-        \begin{itemize}
-            \item
-        \end{itemize}
+        Execution of malicious code.
     \textbf{Remediation:}
         \begin{itemize}
-            \item
+            \item Validate the integrity of resources all the way from development to production.
+            \item Code signubg to prevent unsigned commits from flowing down the pipeline.
+            \item Prior to fetching and using 3rd parties, the hash of the 3rd paries should be culculated and 
+            cross referenced against the official published hash of the resource provider.
         \end{itemize}
+        
     % 10
-    \item \textbf{Poisoned Pipeline Execution (PPE)}
+    \item \textbf{Insufficient logging and visibility}
 
     \textbf{Definition: }
-
+        The risk allow the adversary to carry out malicious activities without being detected.
+        For example, the permission modificaion and execution of builds.
     \textbf{Impact: }
-        \begin{itemize}
-            \item
-        \end{itemize}
+        Fail to detect a breach may face difficulties in mitigation. Time and data are the most 
+        valuable commodities to an organization under the attack.
     \textbf{Remediation:}
         \begin{itemize}
-            \item
+            \item First, be familiar with different systems involved in the potential threats.
+            \item Make sure all relevant logs are enables.
+            \item Shipping logs to a centralized location and creating the alerts to detect malicious activities.
         \end{itemize}
 \end{enumerate}
 
