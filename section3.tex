@@ -193,6 +193,7 @@ users to verify the
 
     \textbf{Impact: }
         The flaws may be abused by the attacker to manipulate CI/CD flows, and obtain the sensitive tokens.
+    
     \textbf{Remediation:}
         \begin{itemize}
             \item Ensure the network access the systems is aligned with the principle of least access.
@@ -221,8 +222,10 @@ users to verify the
     \textbf{Definition: }
         This flaw allow an attacker with access to the CI/CD process to push malicious code or artifacts down 
         the pipeline.
+
     \textbf{Impact: }
         Execution of malicious code.
+
     \textbf{Remediation:}
         \begin{itemize}
             \item Validate the integrity of resources all the way from development to production.
@@ -237,13 +240,15 @@ users to verify the
     \textbf{Definition: }
         The risk allow the adversary to carry out malicious activities without being detected.
         For example, the permission modificaion and execution of builds.
+
     \textbf{Impact: }
         Fail to detect a breach may face difficulties in mitigation. Time and data are the most 
         valuable commodities to an organization under the attack.
+
     \textbf{Remediation:}
         \begin{itemize}
             \item First, be familiar with different systems involved in the potential threats.
-            \item Make sure all relevant logs are enables.
+            \item Make sure all relevant logs are enables.s
             \item Shipping logs to a centralized location and creating the alerts to detect malicious activities.
         \end{itemize}
 \end{enumerate}
