@@ -10,13 +10,16 @@
 \usepackage{booktabs}
 \usepackage{listings} % Include the listings package
 \usepackage{graphicx}
+\usepackage{pgfgantt}
+\usepackage[all]{xy}
+
+
 
 
 % Define the title page layout
 \geometry{a4paper, margin=1in}
 \titleformat{\section}[block]{\normalfont\bfseries}{\thesection}{1em}{}
 \renewcommand{\maketitlehooka}{\centering}
-
 
 % Title Page Information
 \title{Detecting Unsafe Updates in Software Ecosystems}
@@ -26,23 +29,18 @@
 \newcommand{\industrialmentor}{Industry Mentor: Behnaz Hassanshahi (Oracle Labs, Australia)}
 \newcommand{\wordcount}{Word Count: X words} % Replace X with the actual word count
 
-
 \begin{document}
-
 \include{title}
 \tableofcontents  % This command generates the table of contents
 \newpage
 \input{abstract}
 \input{introduction}
-\input{section2}
-\input{section3}
-\input{section4}
-\input{conclusion}
-\input{section5}
-\input{section6}
-\input{timeline}
+\input{literature_review}
+\input{SLSA}
+\input{methodology}
+\input{timetable_plan}
+\input{conclusion&outcomes}
 
 \bibliographystyle{plain} % Choose a bibliography style
 \bibliography{references} % Specify your .bib file
-
 \end{document}

@@ -1,41 +1,71 @@
-\section{Risk and Defense Method}
-% provide method here
+\section{Literature Review}
+In the literature review, first, prerequisite definition of the CI/CD technique will be 
+described. Then, a variety of risks and attacks are catagorized based on the three attack 
+surface within the CI/CD pipeline, which are source code repository, build and test, and deploy.
+Some defense methods introduced in the related work will be aligned with the attacks in this 
+section. Finally, the top ten risks existed in CI/CD pipeline refering to OWASP 2023 will be 
+summarised~\cite{OWASP2023}.
+
+\subsection{Definition of CI/CD}
+CI/CD is a developmentand and deployment process for automatically building and testing code
+changes that support orgamizations maintain a consistent code base, then automatically shipping 
+the artifact to the target customers. 'CI' involves developers frequently merging code changes 
+into a central repository where automated builds and tests run. 'Build' is the process of 
+converting source code into executable code. Then, running the automated tests which usually 
+combined unit test and integration test against the build. These process will avoid integration 
+challenges that can happen when waiting for release day to merge changes into the release branch. 
+'CD' defined the process of the releases happened automatically~\cite{DoDDefCI/CD2023}. 
+
+Nowadays, nearly all software applicaions were built on top of others works, which is called third-parites.
+However, the convenience and capabilities of the third-party source code usually cause cybersecurity 
+risks~\cite{mastrangelo2015use}. Software supply chain attacks aim at injecting code into software
+components including source code base and artifacts, like docker image or executable software,
+to compromise downstream users~\cite{ladisa2023sok}. 
+Some risks and counter method will be introduced in the following sections.
+
 
 \subsection{Source Code Repository}
-Obtain Git Repository credentials by dumping the environment Variables. Then, user
-the stolen secrets to access the Repository and modify the CI/CD configuration.
-Finally, the code will successfully be injected into the code base, and affects
-downstream users.
+The research\cite{garrett2019detecting} proposed anomaly detection method to cluster and detect 
+the suspicious update javascript code. It shows that this unsupervised machine learning 
+clustering method is able to reduce the manual review effort by 89 percent considering the worse
+case that all updates are not malicious. However, the data is skewed since more unsuspicious updates
+existed in the dataset. Also, the researcher devide the features based on static method by reviewing
+some packages and find out the malicious code. This method is not cost efficient and only specific
+to the programming languages where there are models already trained. 
+
+Neverthless, the author in~\cite{boucher2023trojan} provide a attack approach to bypass the manual
+code review. With the trojan source attacks, the attacker can embed seemingly unsuspicious unicode into
+the comments and indeirectly modify the order of the code causing unexpected results. 
+This would bypass the method provided by~\cite{garrett2019detecting}, 
+since the this feature is not recognised by the model. The author recommend the developers to include 
+Regex detection method in the 'Build' stage, since this malicious code is triggered by the compiled code.
+The fundamental way to avoid being compromised by the trojan source attack is through banning the 
+unicode when it is not required in the projects. Even though the recommend defense strategies 
+are able to counteract this attack, but the method only deal with the specific attack against the 
+CI/CD pipeline.
+
 
 \subsection{Build/Test}
+
 \subsection{Deploy}
-Java Virtual Machine (JVM) executes Java bytecode and provides strong safety
-guarantees. However, the unsafe API, "sun.misc.Unsafe", will cause serious 
-security issue if it is misused by the developers. The research \cite{mastrangelo2015use} 
-studied a large repository, Maven, and analyzed the compiled Java code. The 
-security issues include violating type safety, crashing the virtual machine (VM)
-, uninitialized objects and so on. These misuse might impact third-party package 
-management service. 
-
-
-These goals are seek to establish the trust in the software supply chain by verifying in-
-formation about the participants or processes \cite{melara2022software}.
-The complex CI/CD has the potential to catch the attackers more quickly via peer review, 
-because the developers and distributors get a chance to review the code, increasing
-the chances of malicious code being discovered \cite{levy2003poisoning}.
-Providing cryptographic hashes if the software packages is of significance to
-verify the software's integrity \cite{levy2003poisoning}.
-Signing the releases of the packages by the providers with the public-key enable the 
-users to verify the 
+% Java Virtual Machine (JVM) executes Java bytecode and provides strong safety
+% guarantees. However, the unsafe API, "sun.misc.Unsafe", will cause serious 
+% security issue if it is misused by the developers. The research~\cite{mastrangelo2015use} 
+% studied a large repository, Maven, and analyzed the compiled Java code. The 
+% security issues include violating type safety, crashing the virtual machine (VM)
+% , uninitialized objects and so on. These misuse might impact third-party package 
+% management service. 
 
 % Decide whether to include a reference for each case and decide combine attack surface to this section
+% Decide rephrasing is required
 \subsection{OWASP Top 10 CI/CD Risks\cite{OWASP2023}}
 \begin{enumerate}[label=(\arabic*)]
     % 1
     \item \textbf{Insufficient Flow Control Mechanisms}
     
-    \textbf{Definition: }The attacker obtain permissions to a system within CI/CD process.
-    The system did not provide sufficient enforcement for approval and reviewed machnisms.
+    \textbf{Definition: }The attacker gained access to a system within CI/CD process.
+    However, the system lacked sufficient enforcement to approve and review the code or the artifact
+    provided by the contributors.
 
     \textbf{Impact: }
         \begin{itemize}
@@ -82,7 +112,7 @@ users to verify the
             \item Avoid the shared accounts. Created the dedicated accounts for each specific context.
         \end{itemize}
     % 3
-    \item \textbf{Dependency Chain Abuse}z
+    \item \textbf{Dependency Chain Abuse}
 
     \textbf{Definition: }
         Dependency chain abuse refer to an attacker's ability to abuse flaws relating to how 
@@ -102,13 +132,15 @@ users to verify the
 
     \textbf{Remediation:}
         \begin{itemize}
-            \item Ensure the packages are not directly pulled through the internet, but through an internal proxy. And 
-            disallow pulling directly from external repositories.
+            \item Ensure the packages are not directly pulled through the internet, 
+            but through an internal proxy. And disallow pulling directly from external repositories.
             \item Verify checksum and signature of the pulled packages.
             \item Lock the packages' version instead of pulling the latest version.
-            \item Installation scripts should not access to sentitive resources in the build process.
+            \item Installation scripts should not access to 
+            sentitive resources in the build process.
             \item Always ensure projects contain configuration files of package managers.
-            \item The most important is deploy a quick detection, monitoring and mitigation to avoid further compromise.
+            \item The most important is deploy a quick detection, 
+            monitoring and mitigation to avoid further compromise.
         \end{itemize}
     % 4
     \item \textbf{Poisoned Pipeline Execution (PPE)}
@@ -280,10 +312,16 @@ users to verify the
         developer. 
 
 \end{enumerate}
-Some of the projects aims at providing single solution that conﬂates multiple objectives 
-\cite{melara2022software}.
 
-Despite the previously introduced methods seems to address all the security issue
+\subsection{Conclusion}
+
+Despite the previously introduced methods seems to address all the security issues
 existed in the code base and within the CI/CD, some of them may overemphasize one 
-particular approach to address software supply chain security. without considering 
-compounding factors that impact risk \cite{melara2022software}.
+particular approach to address software supply chain security without considering 
+compounding factors that impact risk.
+Some of the projects aims at providing single solution that conﬂates multiple 
+objectives~\cite{melara2022software}.
+
+In the next section, Supply Chain Level Security Artifacts (SLSA) will be introduced and
+discussed. The framework implemented in this research is based on SLSA.
+

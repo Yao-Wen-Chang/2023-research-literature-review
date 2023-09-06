@@ -1,17 +1,19 @@
 \section{Introduction}
-Continuous Integration\/Continuous Delivery (CI/CD) is a development
-process for quickly building and testing code changes that helps 
-organizations maintain a consistent code base for their applications 
-while dynamically integrating code changes. Therefore, CI/CD environments 
-are attractive targets for malicious cyber actors (MCAs) whose goals are 
-to compromise information by introducing malicious code into CI/CD 
-applications, gaining access to intellectual property/trade secrets 
-through code theft, or causing denial of service effects against applications.
+CI/CD is a development method used to efficiently build and test code updates. 
+It helps organizations keep their software consistent and allows them to smoothly 
+incorporate new changes. However, CI/CD systems can be tempting targets for cyber attackers. 
+These attackers may try to insert malicious code into CI/CD processes, 
+steal valuable credentials, or disrupt the original functioning of applications.
 
-Recent incidence like the infection of SolarWind's Orien platform \cite{ladisa2023sok, peisert2021perspectives} 
-which is used to monitor and manage the network is downloaded by thousands customers, 
-including U.S. government agencies, critical infrastrure providers, and private companies. 
- 
+Recent incidence like the infection of SolarWind's Orien platform \cite{ladisa2023sok, 
+peisert2021perspectives} which is used to monitor and manage the network is downloaded by 
+thousands of customers, including U.S. government agencies, critical infrastrure providers, 
+and private companies. 
+
+Another malicious attack target the credentials from a contributor of the esline-scope package.
+The attackers updated the malicious code within the code base, which will end up stealing
+multiple credentials from the downstream users \cite{eslint2018}.
+
 Section 2 will briefly introduce CI/CD. Section 3 would target the attack
 surface within the process of CI/CD and the counter method. In section 4, our literature 
 review would introduce SLSA framework from Google, and explain how SLSA can patch 
