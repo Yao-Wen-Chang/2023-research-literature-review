@@ -23,8 +23,9 @@ components including source code base and artifacts, like docker image or execut
 to compromise downstream users~\cite{ladisa2023sok}. 
 Some risks and counter method will be introduced in the following sections.
 
+\subsection{Three Main Stage in CI/CD}
 
-\subsection{Source Code Repository}
+\subsubsection{Source Code Repository}
 The research\cite{garrett2019detecting} proposed anomaly detection method to cluster and detect 
 the suspicious update javascript code. It shows that this unsupervised machine learning 
 clustering method is able to reduce the manual review effort by 89 percent considering the worse
@@ -44,10 +45,35 @@ unicode when it is not required in the projects. Even though the recommend defen
 are able to counteract this attack, but the method only deal with the specific attack against the 
 CI/CD pipeline.
 
+\subsubsection{Build/Test}
+% Inject bad Dependency
+% Implant CI/CD runner images and container
+% Compromise CI/CD server
+In~\cite{ohm2020backstabber}, 
+an overview of the attack methods and how the attacks are triggered are being summarized. 
+The most frequent way implemented to inject the bad dependencies is 'Typosquatting'. It is a simple method
+to modify the packages' name with a similar one. If the consumers did not carefully check the installed 
+packages, the malicious dependencies will being triggered based on the trigger point designed by the 
+attackers. 
+Also, this research find out the popular trigger point of the malicious dependencies is at the
+installation step. At the installation step, the malicious code is usually embedded in the installation
+script. When the customers install the packages, the systems are diretly being compromised.  
+This research paper implements the taxomony method to deduce possible trigger points and 
+the possible attacks occuring within each CI/CD stage. This method provides developers a clear 
+and completed checklist to prevent the potential vulnerabilites. However, this paper does not
+provide the completed counter measure against the attacks.
 
-\subsection{Build/Test}
-
-\subsection{Deploy}
+\subsubsection{Deploy}
+% Bypass Review
+% Use admin permission to add approver
+In the extremely severe attack event~\cite{gentoo-incident-report}, 
+the unknown entity gain access to the GitHub repository with the higher permission from the controlled
+account of the repository maintainer. The accident causes malicious code to be committed and the
+attcker even trying to remove various repositories. Some of the good practices are implemented
+in this repository. For example, the audit logs function provided by GitHub enables the Gentoo organization
+to respond quickly to prevent from the extra impact. However, the Gentoo Github organization does not
+implement 2FA to prevent the accounts from being fully compromised. Also, it does not manage the identities
+correctly.
 % Java Virtual Machine (JVM) executes Java bytecode and provides strong safety
 % guarantees. However, the unsafe API, "sun.misc.Unsafe", will cause serious 
 % security issue if it is misused by the developers. The research~\cite{mastrangelo2015use} 
