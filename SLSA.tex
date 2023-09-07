@@ -11,10 +11,10 @@ artifact \cite{DoDDefCI/CD2023}.
 \subsection{Provenance}
 SLSA provenance clearly provides the transparent information about the artifacts or the packages.
 Information such as, who builds this artifact and how the artifact was built from the source.
-These information will be verified by the package registory or even the customers. The provenance
-is an attestion in SLSA.
+The information will be verified by the package registry or even the customers. The provenance
+is an attestation in SLSA.
 
-\subsection{SLSA Provenance V.S SBOM (Software Bill of Materials)}
+\subsection{SLSA Provenance versus SBOM (Software Bill of Materials)}
 Provenance and SBOM are somehow similar, so they are easily confused. Provenance is used to 
 assess the trustworthiness and security of the processes used to build and deliver the software artifacts~\ref{provenance}.
 By contrast, SBOM focus on listing software components and their versions \ref{SBOM}.
@@ -50,13 +50,13 @@ Logging Utility (v1.2)
   \item The tenant (developers) provide specific external parameters, like the version of the application 
   and the reference to the dependency.
   \item The control plane receives the external parameters, then fetch the necessary build scripts, configuration,  
-  and depencies based on the external parameters.
+  and dependencies based on the external parameters.
   \item The control system sets up the isolated environment for the build.
   \item Finally, the model outputs the artifacts. If the build platform follows SLSA build level 2+, then
   the provenance will also be generated from the control systems.
 \end{enumerate}
 \subsection{SLSA Security Level}
-Currently SLSA have defined 4 levels (LV.0 - LV.3), which will be 
+Currently, SLSA have defined 4 levels (LV.0 - LV.3), which will be 
 briefly described in Table~\ref{tab:slsa-levels}, and working on level 4.
 \begin{table}[ht]
   \centering

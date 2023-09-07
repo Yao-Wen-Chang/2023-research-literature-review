@@ -1,6 +1,6 @@
 \section{Timetable / Plan}
-
-
+We split the research plan into three phases, also, providing a timetable for understanding 
+the research schedule.
 
 \subsection{Phase One}
 Defining Unsafe Updates: Building on similar research conducted in the JavaScript ecosystem 
@@ -10,20 +10,31 @@ Typically, an unsafe update could be one that introduces breaking changes,
 negatively affects performance, opens up security vulnerabilities, 
 or adds incompatible API changes.
 
+In order to discover different type of unsafe updates and the target victim, we will review 
+related work, articles, and CI/CD attack events to support the understanding of the CI/CD 
+attacks existed nowadays. 
+
 \subsection{Phase Two}
 Implementation of Safety Checks: Next, we will extend the Macaron framework's 
 functionality by implementing additional safety checks for these unsafe updates.
 Macaron is an extensible checker framework for supply chain security and CI/CD services,
 such as GitHub Actions. It allows adding new checks as Python modules and provides 
 intermediate representations specifically designed for CI/CD services to facilitate 
-verifying new properties.
+verifying new properties. We will begin from implementing SLSA Level 4 check including Two 
+Person Review, Verified History, and Retained indefinitely.
 
+The remaining session, we will keep contributing to the framework, but only implementing a
+specific version on the phase three.
 \subsection{Phase Three}
 Empirical Analysis of Real-World Projects: With the safety checks in place, 
 the final phase of the project is an empirical study conducted on GitHub to ascertain
 the frequency of unsafe updates occurring in Python and/or Java projects.
 By understanding the 'how' and 'why' behind these updates, developers can adopt more 
 informed, proactive strategies in their coding practices.
+
+Furthermore, we will build graph and even attack tree to classify our finding and visualize 
+the result. In this way, the developers will easily understand what they should focus 
+and improve in their current configuration of the CI/CD pipeline or the future projects.
 
 
 \newganttchartelement{orangebar}{
@@ -74,7 +85,7 @@ informed, proactive strategies in their coding practices.
   y unit chart=9mm,
   y unit title=12mm,
   time slot format=isodate,
-  time slot unit=month,
+  time slot unit=month, 
   % group incomplete/.append style={fill=groupblue},
   group label font=\bfseries \Large,
   % group progress label font=\bfseries\small,
@@ -86,14 +97,20 @@ informed, proactive strategies in their coding practices.
   group/.append style={fill=orange}
 ]{Phase One}{2023-7-31}{2023-10-23}\\
 \ganttorangebar{Literature Review}{2023-7-31}{2023-8-29}\\
+\ganttorangebar{Define Unsafe Updates}{2023-7-31}{2023-8-29}\\
 \ganttgroup[
   group/.append style={fill=blue}
-]{Phase Two}{2023-11-28}{2024-1-23}\\
-\ganttbluebar[bar height=0.5]{Implement Two Person Review Check}{2023-11-28}{2024-1-7}\\
+]{Phase Two}{2023-7-31}{2024-5-31}\\
+\ganttbluebar[bar height=0.5]{Implement Two Person Review Check}{2023-7-31}{2023-9-12}\\
+\ganttbluebar[bar height=0.5]{Implement Verified History Check}{2023-8-27}{2023-9-30}\\
+\ganttbluebar[bar height=0.5]{Implement Retained indefinitely}{2023-9-27}{2023-10-12}\\
+\ganttbluebar[bar height=0.5]{Implement Other Functions}{2023-10-12}{2024-5-31}\\
+
 \ganttgroup[
   group/.append style={fill=green}
-]{Phase Three}{2024-1-23}{2024-5-31}\\
-\ganttgreenbar{Subwork 1}{2024-2-28}{2024-5-31}\\
+]{Phase Three}{2023-9-18}{2024-5-31}\\
+\ganttgreenbar{Collect Data}{2023-9-18}{2024-1-23}\\
+\ganttgreenbar{Empirical Analysis of Real-World Projects}{2024-1-23}{2024-5-31}\\
 \end{ganttchart}
 }
 \end{center}

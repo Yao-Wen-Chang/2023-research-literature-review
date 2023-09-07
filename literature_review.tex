@@ -1,14 +1,14 @@
 \section{Literature Review}
 In the literature review, first, prerequisite definition of the CI/CD technique will be 
-described. Then, a variety of risks and attacks are catagorized based on the three attack 
+described. Then, a variety of risks and attacks are categorised based on the three attack 
 surface within the CI/CD pipeline, which are source code repository, build and test, and deploy.
 Some defense methods introduced in the related work will be aligned with the attacks in this 
-section. Finally, the top ten risks existed in CI/CD pipeline refering to OWASP 2023 will be 
+section. Finally, the top ten risks existed in CI/CD pipeline referring to OWASP 2023 will be 
 summarised~\cite{OWASP2023}.
 
 \subsection{Definition of CI/CD}
-CI/CD is a developmentand and deployment process for automatically building and testing code
-changes that support orgamizations maintain a consistent code base, then automatically shipping 
+CI/CD is a development and deployment process for automatically building and testing code
+changes that support organizations maintain a consistent code base, then automatically shipping 
 the artifact to the target customers. 'CI' involves developers frequently merging code changes 
 into a central repository where automated builds and tests run. 'Build' is the process of 
 converting source code into executable code. Then, running the automated tests which usually 
@@ -16,7 +16,7 @@ combined unit test and integration test against the build. These process will av
 challenges that can happen when waiting for release day to merge changes into the release branch. 
 'CD' defined the process of the releases happened automatically~\cite{DoDDefCI/CD2023}. 
 
-Nowadays, nearly all software applicaions were built on top of others works, which is called third-parites.
+Nowadays, nearly all software applications were built on top of others works, which is called third-parties.
 However, the convenience and capabilities of the third-party source code usually cause cybersecurity 
 risks~\cite{mastrangelo2015use}. Software supply chain attacks aim at injecting code into software
 components including source code base and artifacts, like docker image or executable software,
@@ -24,24 +24,26 @@ to compromise downstream users~\cite{ladisa2023sok}.
 Some risks and counter method will be introduced in the following sections.
 
 \subsection{Three Main Stage in CI/CD}
+In the following three subsections, some attacks events and potential attack methods will be categories into 
+the high-level representation of three main categories within the CI/CD pipeline. 
 
 \subsubsection{Source Code Repository}
 The research\cite{garrett2019detecting} proposed anomaly detection method to cluster and detect 
-the suspicious update javascript code. It shows that this unsupervised machine learning 
+the suspicious update JavaScript code. It shows that this unsupervised machine learning 
 clustering method is able to reduce the manual review effort by 89 percent considering the worse
 case that all updates are not malicious. However, the data is skewed since more unsuspicious updates
-existed in the dataset. Also, the researcher devide the features based on static method by reviewing
-some packages and find out the malicious code. This method is not cost efficient and only specific
+existed in the dataset. Also, the researcher divide the features based on static method by reviewing
+some packages and find out the malicious code. This method is not cost-efficient and only specific
 to the programming languages where there are models already trained. 
 
-Neverthless, the author in~\cite{boucher2023trojan} provide a attack approach to bypass the manual
-code review. With the trojan source attacks, the attacker can embed seemingly unsuspicious unicode into
-the comments and indeirectly modify the order of the code causing unexpected results. 
+Nevertheless, the author in~\cite{boucher2023trojan} provide an attack approach to bypass the manual
+code review. With the Trojan source attacks, the attacker can embed seemingly unsuspicious Unicode into
+the comments and indirectly modify the order of the code causing unexpected results. 
 This would bypass the method provided by~\cite{garrett2019detecting}, 
-since the this feature is not recognised by the model. The author recommend the developers to include 
+since this feature is not recognised by the model. The author recommends the developers to include 
 Regex detection method in the 'Build' stage, since this malicious code is triggered by the compiled code.
-The fundamental way to avoid being compromised by the trojan source attack is through banning the 
-unicode when it is not required in the projects. Even though the recommend defense strategies 
+The fundamental way to avoid being compromised by the Trojan source attack is through banning the 
+Unicode when it is not required in the projects. Even though recommend defense strategies 
 are able to counteract this attack, but the method only deal with the specific attack against the 
 CI/CD pipeline.
 
@@ -50,17 +52,17 @@ CI/CD pipeline.
 % Implant CI/CD runner images and container
 % Compromise CI/CD server
 In~\cite{ohm2020backstabber}, 
-an overview of the attack methods and how the attacks are triggered are being summarized. 
+an overview of the attack methods and how the attacks are triggered are being summarised. 
 The most frequent way implemented to inject the bad dependencies is 'Typosquatting'. It is a simple method
 to modify the packages' name with a similar one. If the consumers did not carefully check the installed 
 packages, the malicious dependencies will being triggered based on the trigger point designed by the 
 attackers. 
 Also, this research find out the popular trigger point of the malicious dependencies is at the
 installation step. At the installation step, the malicious code is usually embedded in the installation
-script. When the customers install the packages, the systems are diretly being compromised.  
-This research paper implements the taxomony method to deduce possible trigger points and 
-the possible attacks occuring within each CI/CD stage. This method provides developers a clear 
-and completed checklist to prevent the potential vulnerabilites. However, this paper does not
+script. When the customers install the packages, the systems are directly being compromised.  
+This research paper implements the taxonomy method to deduce possible trigger points and 
+the possible attacks occurring within each CI/CD stage. This method provides developers a clear 
+and completed checklist to prevent the potential vulnerabilities. However, this paper does not
 provide the completed counter measure against the attacks.
 
 \subsubsection{Deploy}
@@ -69,9 +71,9 @@ provide the completed counter measure against the attacks.
 In the extremely severe attack event~\cite{gentoo-incident-report}, 
 the unknown entity gain access to the GitHub repository with the higher permission from the controlled
 account of the repository maintainer. The accident causes malicious code to be committed and the
-attcker even trying to remove various repositories. Some of the good practices are implemented
+attacker even trying to remove various repositories. Some good practices are implemented
 in this repository. For example, the audit logs function provided by GitHub enables the Gentoo organization
-to respond quickly to prevent from the extra impact. However, the Gentoo Github organization does not
+to respond quickly to prevent from the extra impact. However, the Gentoo GitHub organization does not
 implement 2FA to prevent the accounts from being fully compromised. Also, it does not manage the identities
 correctly.
 % Java Virtual Machine (JVM) executes Java bytecode and provides strong safety
@@ -97,9 +99,9 @@ correctly.
         \begin{itemize}
             \item The attackers can push code to a repository branch, which is automatically
             deployed to production and manually trigger by the attackers.
-            \item Upload an artifact to the artifact repository, such as a package or container
-            , in the guise of a legitimate artifact created by the build environment and picked 
-            up by a deploy pipeline and deployed to production.
+            \item Upload an artifact to the artifact repository, such as a package or container, 
+            in the guise of a legitimate artifact created by the build environment and picked 
+            up by a deployment pipeline and deployed to production.
         \end{itemize}
     
     \textbf{Remediation:}
@@ -113,13 +115,13 @@ correctly.
     \item \textbf{Inadequate identity and Access Management}
     
     \textbf{Definition: }This risks stem from the difficulties in managing the vast amount of
-    identities. The identies are indentified through personal access token, e-mail, password and so on.
+    identities. The identities are identified through personal access token, e-mail, password and so on.
         \begin{itemize}
             \item Overly permissive identities
-            \item Stale identies - Some identies that are not active or no longer require access but have
-            no had their account deactivated.
-            \item External indentities - (1) Employees registered with email from a domain not managed by 
-            the organization (2) External collaborators are outside of the organization's control.
+            \item Stale identities - Some identities that are not active or no longer require access but have
+            not had their account deactivated.
+            \item External identities - (1) Employees registered with email from a domain not managed by 
+            the organization (2) External collaborators are outside the organization's control.
         \end{itemize}
 
     \textbf{Impact: }
@@ -130,11 +132,11 @@ correctly.
 
     \textbf{Remediation:}
         \begin{itemize}
-            \item Continuously analyzed and mapped the identies' account to their permissions, and removed the 
+            \item Continuously analyzed and mapped the identities' account to their permissions, and removed 
             the permissions not necessary to the ongoing work.
-            \item Ensure the identies are aligned to the principle of least privilege, and pre-defined a expiry date 
-            for the identies' permissions.
-            \item Prevent the emplyees from using personal email addresses.
+            \item Ensure the identities are aligned to the principle of the least privilege, and pre-defined an expiry date 
+            for the identities' permissions.
+            \item Prevent the employees from using personal email addresses.
             \item Avoid the shared accounts. Created the dedicated accounts for each specific context.
         \end{itemize}
     % 3
@@ -142,13 +144,13 @@ correctly.
 
     \textbf{Definition: }
         Dependency chain abuse refer to an attacker's ability to abuse flaws relating to how 
-        engineering workstations and build environments fetch code dependencies. The build system download the 
+        engineering workstations and build environments fetch code dependencies. The build system downloads the 
         malicious package instead of the one intended to be pull. There are four scenarios where the developers might be tricked.
         \begin{itemize}
             \item Dependency confusion - Publication of malicious packages in public repositories with the same 
             names as those private one.
             \item Obtain the control of the account of the package maintainer in order to upload the malicious version.
-            \item Typosquatting - Publication of a similar names to those popular packages.
+            \item Typosquatting - Publication of similar names to those popular packages.
             \item Brandjacking - The malicious packages were consistent with the naming convention with the trusted brand.
         \end{itemize}
 
@@ -163,9 +165,9 @@ correctly.
             \item Verify checksum and signature of the pulled packages.
             \item Lock the packages' version instead of pulling the latest version.
             \item Installation scripts should not access to 
-            sentitive resources in the build process.
+            sensitive resources in the build process.
             \item Always ensure projects contain configuration files of package managers.
-            \item The most important is deploy a quick detection, 
+            \item The most important is deployment of a quick detection, 
             monitoring and mitigation to avoid further compromise.
         \end{itemize}
     % 4
@@ -182,17 +184,17 @@ correctly.
 
         In the I-PPE scenario, the pipeline is configured to pull the CI configuration file from a protected 
         branch or CI build is defined by the CI system instead of the in the file stored in the source code.
-        In those cases, the attackers can still injecting malicious code into the files referenced by the pipeline
+        In those cases, the attackers can still inject malicious code into the files referenced by the pipeline
         configuration file.
 
-        In most cases, the permissions of the access to the repository are given to the orgamization
+        In most cases, the permissions of the access to the repository are given to the organization
         members. However, in the 3PE scenario, the public repositories are allowed the anonymous to 
-        contribute. If the CI pipline runs unreviewed code, the repository is susceptible to the 3PE.
+        contribute. If the CI pipeline runs unreviewed code, the repository is susceptible to the 3PE.
 
     \textbf{Impact: }
         \begin{itemize}
             \item Access to the secret available to the CI job.
-            \item Able to ship code and artifacts futher down the pipeline, in the guise of legitimate 
+            \item Able to ship code and artifacts further down the pipeline, in the guise of legitimate 
             code build by the build process.
         \end{itemize}
 
@@ -212,7 +214,7 @@ correctly.
         execution environment.
 
     \textbf{Impact: }
-        Malicious code is able to run in the context of the pipeline. Probabily, this attack would lead to 
+        Malicious code is able to run in the context of the pipeline. Probability, this attack would lead to 
         the exposure of the secret and confidential data.
         
     \textbf{Remediation:}
@@ -226,16 +228,16 @@ correctly.
     \textbf{Definition: }
         CI/CD environments are built of multiple systems communicating and authenticating against each other
         through verifying the credentials. Insufficient credential Hygiene generally means the overly permissive
-        or the credentials are accidently existed in CI/CD pipelines and the code repositories. Some cases are
+        or the credentials are accidentally existed in CI/CD pipelines and the code repositories. Some cases are
         due to the unrotated credentials issue.  
 
     \textbf{Impact: }
         The adversary obtains the credentials to deploy the malicious code and artifacts.
     \textbf{Remediation:}
         \begin{itemize}
-            \item Conform to the least privilege rule abd granted the exact set of permission.
+            \item Conform to the least privilege rule and granted the exact set of permission.
             \item Avoid sharing the same sets of credentials across multiple contexts.
-            \item Using temporary credentials. If using static credentials, better periodically roate
+            \item Using temporary credentials. If using static credentials, better periodically rotate
             all the static credentials and detect stale credentials.
             \item Scoping the credentials to specific source IP to ensure the credentials cannot be used
             outside the environment even if it is compromised.
@@ -254,7 +256,7 @@ correctly.
     
     \textbf{Remediation:}
         \begin{itemize}
-            \item Ensure the network access the systems is aligned with the principle of least access.
+            \item Ensure the network access the systems is aligned with the principle of the least access.
             \item Periodically review all system configuration.
             \item Ensure permission to pipeline execution nodes follow the least privilege principle. 
         \end{itemize}
@@ -271,14 +273,14 @@ correctly.
         \begin{itemize}
             \item Define the scoped context that the 3rd parties are able to access, and with strict ingress
             and egress filter.
-            \item Established vetting procedures to verify the trustworthiness of the 3rd paries. Prior to being 
+            \item Established vetting procedures to verify the trustworthiness of the 3rd parties. Prior to being 
             granted access to the environment, the approval of being granted to resources should be verified.
         \end{itemize}
     % 9
     \item \textbf{Improper Artifact Integrity Validation}
 
     \textbf{Definition: }
-        This flaw allow an attacker with access to the CI/CD process to push malicious code or artifacts down 
+        This flaw allows an attacker with access to the CI/CD process to push malicious code or artifacts down 
         the pipeline.
 
     \textbf{Impact: }
@@ -287,9 +289,9 @@ correctly.
     \textbf{Remediation:}
         \begin{itemize}
             \item Validate the integrity of resources all the way from development to production.
-            \item Code signubg to prevent unsigned commits from flowing down the pipeline.
-            \item Prior to fetching and using 3rd parties, the hash of the 3rd paries should be culculated and 
-            cross referenced against the official published hash of the resource provider.
+            \item Code signing to prevent unsigned commits from flowing down the pipeline.
+            \item Prior to fetching and using 3rd parties, the hash of the 3rd parties should be calculated and 
+            cross-referenced against the official published hash of the resource provider.
         \end{itemize}
         
     % 10
@@ -297,7 +299,7 @@ correctly.
 
     \textbf{Definition: }
         The risk allow the adversary to carry out malicious activities without being detected.
-        For example, the permission modificaion and execution of builds.
+        For example, the permission modification and execution of builds.
 
     \textbf{Impact: }
         Fail to detect a breach may face difficulties in mitigation. Time and data are the most 
@@ -306,7 +308,7 @@ correctly.
     \textbf{Remediation:}
         \begin{itemize}
             \item First, be familiar with different systems involved in the potential threats.
-            \item Make sure all relevant logs are enables.s
+            \item Make sure all relevant logs are enables.
             \item Shipping logs to a centralized location and creating the alerts to detect malicious activities.
         \end{itemize}
 \end{enumerate}
@@ -321,15 +323,15 @@ correctly.
 
     \item \textbf{Strong Cryptographic Algorithm}
     
-        Avoid using outdated crytographic algorithm which poses a threat to CI/CD pipelines.
+        Avoid using outdated cryptographic algorithm which poses a threat to CI/CD pipelines.
         The threat includes sensitive data exposure and keys generated across the CI/CD 
         pipeline.
 
     \item \textbf{Minimize the Use of Long-Term Credentials}
 
-    \item \textbf{Add Signature to CI/CD Configuration and Cerify It}
+    \item \textbf{Add Signature to CI/CD Configuration and Certify It}
 
-        Ensure the code change is continuously signed, and the signaature is verified throughout
+        Ensure the code change is continuously signed, and the signature is verified throughout
         CI/CD process. If the signing identity itself is compromised, it undermines trust.
     
     \item \textbf{Two-Person Rules for all Code Updates}
@@ -345,7 +347,7 @@ Despite the previously introduced methods seems to address all the security issu
 existed in the code base and within the CI/CD, some of them may overemphasize one 
 particular approach to address software supply chain security without considering 
 compounding factors that impact risk.
-Some of the projects aims at providing single solution that conﬂates multiple 
+Some projects aim at providing single solution that conﬂates multiple 
 objectives~\cite{melara2022software}.
 
 In the next section, Supply Chain Level Security Artifacts (SLSA) will be introduced and
