@@ -24,10 +24,20 @@ to compromise downstream users~\cite{ladisa2023sok}.
 Some risks and counter method will be introduced in the following sections.
 
 \subsection{Three Main Stage in CI/CD}
-In the following three subsections, some attacks events and potential attack methods will be categories into 
-the high-level representation of three main categories within the CI/CD pipeline. 
+In the following three subsections, 
+we will categorise some attack events and potential attack methods into the high-level representation 
+of three main categories within the CI/CD pipeline. This categorisation allows us to gain a deeper understanding of 
+the security challenges and risks associated with each phase of the software development and delivery process.
 
 \subsubsection{Source Code Repository}
+Java Virtual Machine (JVM) executes Java bytecode and provides strong safety
+guarantees. However, the unsafe API, "sun.misc.Unsafe", will cause serious 
+security issue if it is misused by the developers. The research~\cite{mastrangelo2015use} 
+studied a large repository, Maven, and analyzed the compiled Java code. The 
+security issues include violating type safety, crashing the virtual machine (VM), 
+uninitialized objects and so on. These misuse might impact third-party package 
+management service. 
+
 The research\cite{garrett2019detecting} proposed anomaly detection method to cluster and detect 
 the suspicious update JavaScript code. It shows that this unsupervised machine learning 
 clustering method is able to reduce the manual review effort by 89 percent considering the worse
@@ -51,6 +61,11 @@ CI/CD pipeline.
 % Inject bad Dependency
 % Implant CI/CD runner images and container
 % Compromise CI/CD server
+Malicious code injection can occur during the build of the pre-built components, especially in compiled languages.
+This attack method is favored by the attackers, since the detection of the pre-built components and compiled code is 
+typically more difficult~\cite{ladisa2023journey}. Therefore, opting for building package directly from 
+source code is a measure to avoid this risk.
+
 In~\cite{ohm2020backstabber}, 
 an overview of the attack methods and how the attacks are triggered are being summarised. 
 The most frequent way implemented to inject the bad dependencies is 'Typosquatting'. It is a simple method
@@ -76,29 +91,20 @@ in this repository. For example, the audit logs function provided by GitHub enab
 to respond quickly to prevent from the extra impact. However, the Gentoo GitHub organization does not
 implement 2FA to prevent the accounts from being fully compromised. Also, it does not manage the identities
 correctly.
-% Java Virtual Machine (JVM) executes Java bytecode and provides strong safety
-% guarantees. However, the unsafe API, "sun.misc.Unsafe", will cause serious 
-% security issue if it is misused by the developers. The research~\cite{mastrangelo2015use} 
-% studied a large repository, Maven, and analyzed the compiled Java code. The 
-% security issues include violating type safety, crashing the virtual machine (VM)
-% , uninitialized objects and so on. These misuse might impact third-party package 
-% management service. 
 
-% Decide whether to include a reference for each case and decide combine attack surface to this section
-% Decide rephrasing is required
 \subsection{OWASP Top 10 CI/CD Risks\cite{OWASP2023}}
 \begin{enumerate}[label=(\arabic*)]
     % 1
     \item \textbf{Insufficient Flow Control Mechanisms}
     
-    \textbf{Definition: }The attacker gained access to a system within CI/CD process.
-    However, the system lacked sufficient enforcement to approve and review the code or the artifact
-    provided by the contributors.
+    \textbf{Definition: }The attacker successfully gained unauthorised access to a critical system within the CI/CD process. 
+    However, it became apparent that the compromised system lacked adequate enforcement mechanisms to rigorously 
+    approve and review the code or artifacts provided by contributors, leaving a significant gap in the security infrastructure.
 
     \textbf{Impact: }
         \begin{itemize}
-            \item The attackers can push code to a repository branch, which is automatically
-            deployed to production and manually trigger by the attackers.
+            \item The attackers can sneakily add malicious code to a repository branch. 
+            This code can either be automatically deployed to the production system or activated manually by the attackers themselves.
             \item Upload an artifact to the artifact repository, such as a package or container, 
             in the guise of a legitimate artifact created by the build environment and picked 
             up by a deployment pipeline and deployed to production.
@@ -132,8 +138,8 @@ correctly.
 
     \textbf{Remediation:}
         \begin{itemize}
-            \item Continuously analyzed and mapped the identities' account to their permissions, and removed 
-            the permissions not necessary to the ongoing work.
+            \item Consistently checked and connected the accounts of individuals with their access rights, 
+            and eliminated any unnecessary access rights that weren't needed for their current tasks.
             \item Ensure the identities are aligned to the principle of the least privilege, and pre-defined an expiry date 
             for the identities' permissions.
             \item Prevent the employees from using personal email addresses.
@@ -341,15 +347,33 @@ correctly.
 
 \end{enumerate}
 
-\subsection{Conclusion}
+\subsection{in-toto Framework}
+in-toto is an end-to-end security framework aim to protect the software supply chain. It provides a variety
+of mechanism for each steps in the CI/CD to check the integrity of the previous steps. Cryptography and hash 
+function are implemented in in-toto.
 
+\textbf{Layout} is a file format to document the actors, timestamp and actions with each step of the supply chain.
+It provides the information for downstream steps to verify. This information is the crypto hash of action, actors and some other security
+related data. Therefore, the downstream steps can verify the integrity based on the hash. This is the high level structure 
+compared to Link Metadata.
+
+\textbf{Link MetaData} is a lower level structure compare to Layout, which provides much detailed information about each action.
+\subsection{Conclusion}
 Despite the previously introduced methods seems to address all the security issues
 existed in the code base and within the CI/CD, some of them may overemphasize one 
 particular approach to address software supply chain security without considering 
 compounding factors that impact risk.
 Some projects aim at providing single solution that conﬂates multiple 
 objectives~\cite{melara2022software}.
+For example, SAP's Risk Explorer is intended to foster a community of users 
+and contributors to the taxonomy. Users can explore the taxonomy by collapsing and expanding nodes in an attack tree. 
+Detailed information about attack vectors, references, and safeguards is displayed below the tree.
+This tool covers all potential risk with an entire CI/CD pipeline~\cite{ladisa2023journey}.
 
+Also, the in-toto framework is dedicated to ensure the integrity of the supply chain pipeline and conflates multiple
+objectives.
+
+The framework implemented in this research is based on SLSA.
 In the next section, Supply Chain Level Security Artifacts (SLSA) will be introduced and
-discussed. The framework implemented in this research is based on SLSA.
+discussed. 
 

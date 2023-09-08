@@ -14,6 +14,14 @@ Another malicious attack target the credentials from a contributor of the esline
 The attackers updated the malicious code within the code base, which will end up stealing
 multiple credentials from the downstream users \cite{eslint2018}.
 
+Sometimes, the risks are due to the situation that the consumers are not aware of the importance 
+of frequent update of the dependencies which are consumed in their packages. In this situation,
+the attackers is able to discover the unsafe dependencies on the git repositories, then looking for
+other packages depend on these unsafe outdated dependencies. It is simple to find out how the bugs being
+fixed on the original dependencies' repositories, and directly compromise the downstream users with the bugs.
+The author in~\cite{wang2020empirical} provides a smart alert system to detect if the older version contains
+bugs and should be updated. Then, the system will automatically update the dependencies.
+
 In Section 2, we delve into the related work on the CI/CD pipeline security. Three main 
 attack surfaces within CI/CD pipeline and the counter measures are introduced here. 
 Additionally, we will summarise the OWASP Top 10 CI/CD Risks. These will provide a comprehensive
