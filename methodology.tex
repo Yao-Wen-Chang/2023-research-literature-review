@@ -1,21 +1,28 @@
 \section{Methodology}
+According to previous works from other researchers, most of the works mainly focus on detecting the malicious
+code within the source code base. Despite this traditional method might be able to discover the suspicious 
+code through scanning, it is an inefficient process if the code base is frequently updated. Also, the method 
+can only promise the malicious code within the whitelist to be detected. However, the attackers usually 
+figure out possible payloads or injection methods to bypass the automatic scanning, like the Trojan source 
+attacks~\cite{boucher2023trojan} we introduced before. 
+Some works recommend to use machine learning method to detect malicious code as an outlier~\cite{garrett2019detecting}.
+How if the attacker try to bypass the training model with obfuscation method? Finding out proper features for
+training a model is time-consuming. In Paper~\cite{zheng2023careful}, 
+the author discover a method to modify
+the forward function in deep learning model, which will indirectly poison the downstream developers who build 
+their model based on the incorrect pretrained weight. 
+Therefore, we are thinking of whether developing a method to grapple with malicious code injection is possible.
+If our framework can make sure the contributors are not being compromised and the CI/CD configuration follows
+the safe requirements suggested by security experts, the developers can trust the dependencies that are
+used in their project. 
+In order to efficiently check the safety of the artifacts, our research will focus on contributing to the Macaron
+Framework which is based on SLSA requirements.
 
-\begin{figure}
-    \centering
-    \caption{Previous Work and Our Solution}
-    \xymatrix{
-        *+[F]{current\ research\  progress} \ar[dr] & \\
-        & *+[F]{solution} \\
-        *+[F]{research\ gap} \ar[ur] &
-    }
-    \label{Previous Work and Our Solution} 
-\end{figure}
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{./screenshot/research_flow.png}
+\end{center}
 
-In Figure~\ref{Previous Work and Our Solution}, 
-our we will deploy Macaron to provide the automatic check and the Policy Engine to verify currently 
-popular repositories.  
-% The research aim focus on what the research project is intended to achieve
-% The research objectives focus on how the aim will be achieved
+
 \subsection{Research Aims}
 This research is aim to contribute the Macaron framework, then examine top 100 Python and Java Git 
 repositories with this framework. The statistical findings will be further concluded through the further process.
