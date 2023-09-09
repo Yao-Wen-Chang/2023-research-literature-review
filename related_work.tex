@@ -92,6 +92,13 @@ to respond quickly to prevent from the extra impact. However, the Gentoo GitHub 
 implement 2FA to prevent the accounts from being fully compromised. Also, it does not manage the identities
 correctly.
 
+\cite{vu2021lastpymile} presents a framework to detect the discrepancies of the packages on 
+between source repositories and package managers. This framework can be cooperated with other tools to improve
+efficient and effective. However, the research does not consider the situation that there are no
+discrepancies between the source code and the published packages, but the code have already been maliciously injected.
+In the framework we deploy in this research, the provenance can ensure there are no suspicious contributors contributing
+to the code base. 
+
 \subsection{OWASP Top 10 CI/CD Risks\cite{OWASP2023}}
 \begin{enumerate}[label=(\arabic*)]
     % 1

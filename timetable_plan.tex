@@ -23,6 +23,15 @@ intermediate representations specifically designed for CI/CD services to facilit
 verifying new properties. We will begin from implementing SLSA Level 4 check including Two 
 Person Review, Verified History, and Retained indefinitely.
 
+A malicious and suspicious event on GitHub is conducted by one user account "pastramahodu"
+which forked nearly 2000 repositories. The researcher find out the attacker try to use script
+to automatically fetch and detect the target file type, such as package.json, sh, and so on.
+Then, the script creating pull request against each victim repositories to compromise the 
+repositories that are not configured properly. The malicious code injection will be triggered
+in CI pipelines to exfiltrate repository name and hostname back to webhook server~\cite{gelb2023mass}.
+Therefore, we decide to implement the following three checks to avoid the malicious code being 
+merged into the branch.
+
 The Two Person Review check ensures each pull request is reviewed by at least one authentic reviewer.
 This check deal with the situation that someone wants to bypass the review and directly merge 
 their code into the branch. Our method will fetch all the pull requests from the branch 
@@ -44,13 +53,61 @@ Empirical Analysis of Real-World Projects: With the safety checks in place,
 the final phase of the project is an empirical study conducted on GitHub to ascertain
 the frequency of unsafe updates occurring in Python and/or Java projects.
 By understanding the 'how' and 'why' behind these updates, developers can adopt more 
-informed, proactive strategies in their coding practices.
+informed, proactive strategies in their coding practices. We will design a script to fetch
+our data, which will be designed to perform the Python script Listing~\ref{pythoncode}.
 
 Furthermore, we will build graph and even attack tree to classify our finding and visualize 
 the result. In this way, the developers can easily understand what they should focus 
 and improve in their current configuration of the CI/CD pipeline or the future projects.
 
+\lstdefinestyle{mystyle}{
+    language=Python,
+    basicstyle=\small\ttfamily,
+    commentstyle=\color{gray},
+    keywordstyle=\color{blue},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4
+}
+\begin{lstlisting}[style=mystyle, caption={Fetch Top 100 Java and Python Repositories}, label=pythoncode]
+  import requests
+  import os
+  import sys
+  access_token = os.getenv("GITHUB_TOKEN")
+  if access_token is None:
+    print(f"Warning: {access_token} environment variable is not set.")
+    sys.exit(1)    
+  url = "https://api.github.com/search/repositories"  
+  language = ['java', 'python']
+  params = {
+      'q': f'language:{language}',  # Filter for repositories with more than 0 stars
+      'sort': 'stars',  # Sort by stars
+      'order': 'desc',  # Sort in descending order (most stars first)
+      'per_page': 100,  # Number of results per page (max is 100)
+      'page': 1,  # Page number (start with 1)
+  }
+  headers = {
+      'Authorization': f'token {access_token}',
+  }
+  # Send the GET request to the GitHub API
+  response = requests.get(url, params=params, headers=headers)
 
+  # Check if the request was successful
+  if response.status_code == 200:
+      # Parse the JSON response
+      data = response.json()
+
+      # Print information about the top repositories
+      for idx, repo in enumerate(data['items'], start=1):
+          print(f"{idx}. {repo['name']} - {repo['html_url']} ({repo['stargazers_count']} stars)")
+  else:
+      print(f"Error: {response.status_code} - {response.text}")
+\end{lstlisting}
+
+\subsection{Timeline}
 \newganttchartelement{orangebar}{
     orangebar/.style={
         inner sep=0pt,

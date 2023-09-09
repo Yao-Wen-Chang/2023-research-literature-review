@@ -11,7 +11,9 @@
 \usepackage{listings} % Include the listings package
 \usepackage{graphicx}
 \usepackage{pgfgantt}
+\usepackage{natbib}
 \usepackage[all]{xy}
+\usepackage{textcase}
 
 \titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
 % Define subsection font size and formatting
@@ -30,6 +32,8 @@
 \newcommand{\supervisor}{Supervisor: Christoph Treude}
 \newcommand{\industrialmentor}{Industry Mentor: Behnaz Hassanshahi (Oracle Labs, Australia)}
 \newcommand{\wordcount}{Word Count: X words} % Replace X with the actual word count
+\renewcommand{\abstractname}{\MakeUppercase{Abstract}}
+
 
 \begin{document}
 \include{title}
