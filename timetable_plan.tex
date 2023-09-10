@@ -56,6 +56,15 @@ By understanding the 'how' and 'why' behind these updates, developers can adopt 
 informed, proactive strategies in their coding practices. We will design a script to fetch
 our data, which will be designed to perform the Python script Listing~\ref{pythoncode}.
 
+Based on the suspicious commits detected by the Macaron Framework, we will further check the 
+code base through static checking tools, then dismissing the false positive case through manual inspection.
+Considering the Python malicious package, typo-squatting is the most frequent case to compromise 
+the consumers who do not carefully check the packages they download. Usually, the attackers' main
+goal is using the injected code to connect to their webhook server or build up a reverse shell, which 
+will cause sensitive data exfiltration. And the malicious code are prone to be injected in the 
+setup.py which is triggered when running the installation script. Therefore, our static analysis 
+method can include this rule~\cite{bertus2018detecting}.
+
 Furthermore, we will build graph and even attack tree to classify our finding and visualize 
 the result. In this way, the developers can easily understand what they should focus 
 and improve in their current configuration of the CI/CD pipeline or the future projects.

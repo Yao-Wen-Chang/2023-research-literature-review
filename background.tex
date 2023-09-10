@@ -19,6 +19,13 @@ Provenance and SBOM are somehow similar, so they are easily confused. Provenance
 assess the trustworthiness and security of the processes used to build and deliver the software artifacts~\ref{provenance}.
 By contrast, SBOM focus on listing software components and their versions \ref{SBOM}.
 
+Most software is distributed with pre-compiled package, so inspecting the source code is somehow impossible.
+SBOM provides a mapping between binary code and the materials of a software. For example, the version of the 
+software will be documented in SBOM. However, the developers cannot trust the pre-compiled artifact is actually 
+derived from the authentic source code. Usually, the current trend will tend to build the reproducible artifact which
+means the binary code is able to be rebuilt from the source code if using the given hardware. 
+Then, the developers can verify the integration through comparing the hash between pre-compiled package and rebuilt artifact~\cite{ferraiuolo2022policy}.
+
 \begin{lstlisting}[language=, caption=SLSA Provenance, label=provenance]
 [Software Build Provenance]
 Build Date: 2023-09-01
@@ -76,5 +83,22 @@ briefly described in Table~\ref{tab:slsa-levels}, and working on level 4.
   \hline
   \end{tabular}
 \end{table}
+
+\subsection{Policy Engines}
+Policy is a logic code, which will decide whether the action can be operated. There could be
+nested policies within on policy. For example, the consumer want to check if they are allowed
+to access the cloud and download the data from the cloud. They will if their provided password
+valid and whether the source IP is not within the banned IP list. Then, the policy to check whether
+the password is valid is based on the correct password format and the password is stored in database.
+
+Policy Engine is able to adopt the results generated from other tools, like the checker in the framework of 
+our research or the malicious code injection scanner. The Trusted Wrappers provide and interface to 
+convert the results from the original format into the logic. If the policy is verified, it will become 
+a fact and store in the Transparency log. Everyone can directly monitor the facts store within the transparency 
+log, which prevent the logic from being compromised. The transparency log is untrusted to the consumers,
+which means the consumers will not trust the maintainers of the log~\cite{ferraiuolo2022policy}.
+
+Our framework implements the policy engines combined with the result from the check in order to provide a clear 
+view and easy way to understand the security requirement of the consumers.
 
 
