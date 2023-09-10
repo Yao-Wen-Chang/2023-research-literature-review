@@ -326,6 +326,15 @@ to the code base.
         \end{itemize}
 \end{enumerate}
 
+\subsection{How SLSA Framework Solve Frequent Risks in CI/CD}
+In this section, we will provide some examples to show how SLSA is able to mitigate the risks listed in OWASP Top10.
+SLSA specifies a list of requirements which will enforce secure practice against the most frequent risks.
+In the \textbf{Two-person Reviewed}, it requires the pull request being reviewed by another authentic reviewer.
+The method will make \textbf{Insufficient Flow Control Mechanisms} risk impossible.
+Also, \textbf{Dependencies Complete} is to make sure the SLSA provenance records all dependencies during
+build step. Then, the developers can trust the provenance and inspect all dependencies. This requirement 
+will indirectly defense \textbf{Dependency Chain Abuse}.
+
 
 
 \subsection{ U.S. Department of Defense Recommend \cite{DoDDefCI/CD2023}}
@@ -360,11 +369,14 @@ of mechanism for each steps in the CI/CD to check the integrity of the previous 
 function are implemented in in-toto.
 
 \textbf{Layout} is a file format to document the actors, timestamp and actions with each step of the supply chain.
-It provides the information for downstream steps to verify. This information is the crypto hash of action, actors and some other security
+It provides the information for downstream steps to verify. This information is the cryptographic hash of action, actors and some other security
 related data. Therefore, the downstream steps can verify the integrity based on the hash. This is the high level structure 
 compared to Link Metadata.
 
-\textbf{Link MetaData} is a lower level structure compare to Layout, which provides much detailed information about each action.
+\textbf{Link MetaData} is a lower level structure compared to \textbf{Layout}, which provides much detailed information about each action.
+
+\textbf{SLSA} framework adopted in our research is based on the in-toto framework.
+
 \subsection{Conclusion}
 Despite the previously introduced methods seems to address all the security issues
 existed in the code base and within the CI/CD, some of them may overemphasize one 
@@ -372,15 +384,16 @@ particular approach to address software supply chain security without considerin
 compounding factors that impact risk.
 Some projects aim at providing single solution that conﬂates multiple 
 objectives~\cite{melara2022software}.
-For example, SAP's Risk Explorer is intended to foster a community of users 
-and contributors to the taxonomy. Users can explore the taxonomy by collapsing and expanding nodes in an attack tree. 
-Detailed information about attack vectors, references, and safeguards is displayed below the tree.
-This tool covers all potential risk with an entire CI/CD pipeline~\cite{ladisa2023journey}.
+For instance, SAP's Risk Explorer is designed to cultivate a community of users 
+and contributors to the taxonomy. Users can explore the taxonomy by collapsing and 
+expanding nodes in an attack tree. Detailed information about attack vectors, 
+references, and safeguards is presented beneath the tree. 
+This tool addresses all potential risks associated with an entire CI/CD pipeline, 
+as referenced in~\cite{ladisa2023journey}.
 
-Also, the in-toto framework is dedicated to ensure the integrity of the supply chain pipeline and conflates multiple
-objectives.
+Similarly, the in-toto framework is dedicated to ensuring the integrity of the supply 
+chain pipeline while harmonizing multiple objectives.
 
-The framework implemented in this research is based on SLSA.
-In the next section, Supply Chain Level Security Artifacts (SLSA) will be introduced and
-discussed. 
-
+The framework employed in this research is based on Supply Chain Level Security 
+Artifacts (SLSA). In the following section, we will introduce and discuss Supply Chain 
+Level Security Artifacts (SLSA) in more detail.

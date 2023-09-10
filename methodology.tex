@@ -7,8 +7,7 @@ figure out possible payloads or injection methods to bypass the automatic scanni
 attacks~\cite{boucher2023trojan} we introduced before. 
 Some works recommend to use machine learning method to detect malicious code as an outlier~\cite{garrett2019detecting}.
 How if the attacker try to bypass the training model with obfuscation method? Finding out proper features for
-training a model is time-consuming. In Paper~\cite{zheng2023careful}, 
-the author discover a method to modify
+training a model is time-consuming. The research ~\cite{zheng2023careful} discover a method to modify
 the forward function in deep learning model, which will indirectly poison the downstream developers who build 
 their model based on the incorrect pretrained weight. 
 Therefore, we are thinking of whether developing a method to grapple with malicious code injection is possible.
