@@ -99,269 +99,269 @@ discrepancies between the source code and the published packages, but the code h
 In the framework we deploy in this research, the provenance can ensure there are no suspicious contributors contributing
 to the code base. 
 
-\subsection{OWASP Top 10 CI/CD Risks\cite{OWASP2023}}
-\begin{enumerate}[label=(\arabic*)]
-    % 1
-    \item \textbf{Insufficient Flow Control Mechanisms}
+% \subsection{OWASP Top 10 CI/CD Risks\cite{OWASP2023}}
+% \begin{enumerate}[label=(\arabic*)]
+%     % 1
+%     \item \textbf{Insufficient Flow Control Mechanisms}
     
-    \textbf{Definition: }The attacker successfully gained unauthorised access to a critical system within the CI/CD process. 
-    However, it became apparent that the compromised system lacked adequate enforcement mechanisms to rigorously 
-    approve and review the code or artifacts provided by contributors, leaving a significant gap in the security infrastructure.
+%     \textbf{Definition: }The attacker successfully gained unauthorised access to a critical system within the CI/CD process. 
+%     However, it became apparent that the compromised system lacked adequate enforcement mechanisms to rigorously 
+%     approve and review the code or artifacts provided by contributors, leaving a significant gap in the security infrastructure.
 
-    \textbf{Impact: }
-        \begin{itemize}
-            \item The attackers can sneakily add malicious code to a repository branch. 
-            This code can either be automatically deployed to the production system or activated manually by the attackers themselves.
-            \item Upload an artifact to the artifact repository, such as a package or container, 
-            in the guise of a legitimate artifact created by the build environment and picked 
-            up by a deployment pipeline and deployed to production.
-        \end{itemize}
+%     \textbf{Impact: }
+%         \begin{itemize}
+%             \item The attackers can sneakily add malicious code to a repository branch. 
+%             This code can either be automatically deployed to the production system or activated manually by the attackers themselves.
+%             \item Upload an artifact to the artifact repository, such as a package or container, 
+%             in the guise of a legitimate artifact created by the build environment and picked 
+%             up by a deployment pipeline and deployed to production.
+%         \end{itemize}
     
-    \textbf{Remediation:}
-    \begin{itemize}
-        \item Configure strict branch protection rules
-        \item Limit the usage of auto-merge rules
-        \item Prevent drifts and inconsistencies between the running code in production and its 
-        CI/CD origin.
-    \end{itemize}
-    % 2
-    \item \textbf{Inadequate identity and Access Management}
+%     \textbf{Remediation:}
+%     \begin{itemize}
+%         \item Configure strict branch protection rules
+%         \item Limit the usage of auto-merge rules
+%         \item Prevent drifts and inconsistencies between the running code in production and its 
+%         CI/CD origin.
+%     \end{itemize}
+%     % 2
+%     \item \textbf{Inadequate identity and Access Management}
     
-    \textbf{Definition: }This risks stem from the difficulties in managing the vast amount of
-    identities. The identities are identified through personal access token, e-mail, password and so on.
-        \begin{itemize}
-            \item Overly permissive identities
-            \item Stale identities - Some identities that are not active or no longer require access but have
-            not had their account deactivated.
-            \item External identities - (1) Employees registered with email from a domain not managed by 
-            the organization (2) External collaborators are outside the organization's control.
-        \end{itemize}
+%     \textbf{Definition: }This risks stem from the difficulties in managing the vast amount of
+%     identities. The identities are identified through personal access token, e-mail, password and so on.
+%         \begin{itemize}
+%             \item Overly permissive identities
+%             \item Stale identities - Some identities that are not active or no longer require access but have
+%             not had their account deactivated.
+%             \item External identities - (1) Employees registered with email from a domain not managed by 
+%             the organization (2) External collaborators are outside the organization's control.
+%         \end{itemize}
 
-    \textbf{Impact: }
-        \begin{itemize}
-            \item Overly permissive accounts leads to a state where the attacker can compromise any user
-            account on any system within the CI/CD pipeline.
-        \end{itemize}
+%     \textbf{Impact: }
+%         \begin{itemize}
+%             \item Overly permissive accounts leads to a state where the attacker can compromise any user
+%             account on any system within the CI/CD pipeline.
+%         \end{itemize}
 
-    \textbf{Remediation:}
-        \begin{itemize}
-            \item Consistently checked and connected the accounts of individuals with their access rights, 
-            and eliminated any unnecessary access rights that weren't needed for their current tasks.
-            \item Ensure the identities are aligned to the principle of the least privilege, and pre-defined an expiry date 
-            for the identities' permissions.
-            \item Prevent the employees from using personal email addresses.
-            \item Avoid the shared accounts. Created the dedicated accounts for each specific context.
-        \end{itemize}
-    % 3
-    \item \textbf{Dependency Chain Abuse}
+%     \textbf{Remediation:}
+%         \begin{itemize}
+%             \item Consistently checked and connected the accounts of individuals with their access rights, 
+%             and eliminated any unnecessary access rights that weren't needed for their current tasks.
+%             \item Ensure the identities are aligned to the principle of the least privilege, and pre-defined an expiry date 
+%             for the identities' permissions.
+%             \item Prevent the employees from using personal email addresses.
+%             \item Avoid the shared accounts. Created the dedicated accounts for each specific context.
+%         \end{itemize}
+%     % 3
+%     \item \textbf{Dependency Chain Abuse}
 
-    \textbf{Definition: }
-        Dependency chain abuse refer to an attacker's ability to abuse flaws relating to how 
-        engineering workstations and build environments fetch code dependencies. The build system downloads the 
-        malicious package instead of the one intended to be pull. There are four scenarios where the developers might be tricked.
-        \begin{itemize}
-            \item Dependency confusion - Publication of malicious packages in public repositories with the same 
-            names as those private one.
-            \item Obtain the control of the account of the package maintainer in order to upload the malicious version.
-            \item Typosquatting - Publication of similar names to those popular packages.
-            \item Brandjacking - The malicious packages were consistent with the naming convention with the trusted brand.
-        \end{itemize}
+%     \textbf{Definition: }
+%         Dependency chain abuse refer to an attacker's ability to abuse flaws relating to how 
+%         engineering workstations and build environments fetch code dependencies. The build system downloads the 
+%         malicious package instead of the one intended to be pull. There are four scenarios where the developers might be tricked.
+%         \begin{itemize}
+%             \item Dependency confusion - Publication of malicious packages in public repositories with the same 
+%             names as those private one.
+%             \item Obtain the control of the account of the package maintainer in order to upload the malicious version.
+%             \item Typosquatting - Publication of similar names to those popular packages.
+%             \item Brandjacking - The malicious packages were consistent with the naming convention with the trusted brand.
+%         \end{itemize}
 
-    \textbf{Impact: }
-        Once the malicious code is running, it can be leveraged for credentials theft and move horizontally through a system and 
-        network.
+%     \textbf{Impact: }
+%         Once the malicious code is running, it can be leveraged for credentials theft and move horizontally through a system and 
+%         network.
 
-    \textbf{Remediation:}
-        \begin{itemize}
-            \item Ensure the packages are not directly pulled through the internet, 
-            but through an internal proxy. And disallow pulling directly from external repositories.
-            \item Verify checksum and signature of the pulled packages.
-            \item Lock the packages' version instead of pulling the latest version.
-            \item Installation scripts should not access to 
-            sensitive resources in the build process.
-            \item Always ensure projects contain configuration files of package managers.
-            \item The most important is deployment of a quick detection, 
-            monitoring and mitigation to avoid further compromise.
-        \end{itemize}
-    % 4
-    \item \textbf{Poisoned Pipeline Execution (PPE)}
+%     \textbf{Remediation:}
+%         \begin{itemize}
+%             \item Ensure the packages are not directly pulled through the internet, 
+%             but through an internal proxy. And disallow pulling directly from external repositories.
+%             \item Verify checksum and signature of the pulled packages.
+%             \item Lock the packages' version instead of pulling the latest version.
+%             \item Installation scripts should not access to 
+%             sensitive resources in the build process.
+%             \item Always ensure projects contain configuration files of package managers.
+%             \item The most important is deployment of a quick detection, 
+%             monitoring and mitigation to avoid further compromise.
+%         \end{itemize}
+%     % 4
+%     \item \textbf{Poisoned Pipeline Execution (PPE)}
 
-    \textbf{Definition: }
-        The attacker access to the source control systems, but without access to the build environment, is
-        able to manipulate the build process by injecting malicious code into the build configuration file.
-        There are three type of PPE, direct PPE (D-PPE), indirect PPE (I-PPE) and public-PPE (3PE).
+%     \textbf{Definition: }
+%         The attacker access to the source control systems, but without access to the build environment, is
+%         able to manipulate the build process by injecting malicious code into the build configuration file.
+%         There are three type of PPE, direct PPE (D-PPE), indirect PPE (I-PPE) and public-PPE (3PE).
 
-        In the D-PPE scenario, the attackers modify the CI config files either by submitting a PR or directly pushing to the unprotected
-        remote branch. Since the CI pipeline execution is triggered by push or PR events, and the CI execution
-        is defined by CI Configuration file, the malicious commands run in the build node.
+%         In the D-PPE scenario, the attackers modify the CI config files either by submitting a PR or directly pushing to the unprotected
+%         remote branch. Since the CI pipeline execution is triggered by push or PR events, and the CI execution
+%         is defined by CI Configuration file, the malicious commands run in the build node.
 
-        In the I-PPE scenario, the pipeline is configured to pull the CI configuration file from a protected 
-        branch or CI build is defined by the CI system instead of the in the file stored in the source code.
-        In those cases, the attackers can still inject malicious code into the files referenced by the pipeline
-        configuration file.
+%         In the I-PPE scenario, the pipeline is configured to pull the CI configuration file from a protected 
+%         branch or CI build is defined by the CI system instead of the in the file stored in the source code.
+%         In those cases, the attackers can still inject malicious code into the files referenced by the pipeline
+%         configuration file.
 
-        In most cases, the permissions of the access to the repository are given to the organization
-        members. However, in the 3PE scenario, the public repositories are allowed the anonymous to 
-        contribute. If the CI pipeline runs unreviewed code, the repository is susceptible to the 3PE.
+%         In most cases, the permissions of the access to the repository are given to the organization
+%         members. However, in the 3PE scenario, the public repositories are allowed the anonymous to 
+%         contribute. If the CI pipeline runs unreviewed code, the repository is susceptible to the 3PE.
 
-    \textbf{Impact: }
-        \begin{itemize}
-            \item Access to the secret available to the CI job.
-            \item Able to ship code and artifacts further down the pipeline, in the guise of legitimate 
-            code build by the build process.
-        \end{itemize}
+%     \textbf{Impact: }
+%         \begin{itemize}
+%             \item Access to the secret available to the CI job.
+%             \item Able to ship code and artifacts further down the pipeline, in the guise of legitimate 
+%             code build by the build process.
+%         \end{itemize}
 
-    \textbf{Remediation:}
-        \begin{itemize}
-            \item Ensure that pipelines running unreviewed code are executed on isolated nodes to prevent
-            exposure of sensitive information.
-            \item To prevent the manipulation of the CI configuration file.
-            \item Remove permissions from the users that do not need them.
-        \end{itemize}
-    % 5
-    \item \textbf{Insufficient PBAC (Pipeline-Based Access Controls)}
+%     \textbf{Remediation:}
+%         \begin{itemize}
+%             \item Ensure that pipelines running unreviewed code are executed on isolated nodes to prevent
+%             exposure of sensitive information.
+%             \item To prevent the manipulation of the CI configuration file.
+%             \item Remove permissions from the users that do not need them.
+%         \end{itemize}
+%     % 5
+%     \item \textbf{Insufficient PBAC (Pipeline-Based Access Controls)}
 
-    \textbf{Definition: }
-        Adversary is able to execute malicious code within the context of the pipeline.
-        The pipeline execution nodes have access to the resources or systems within and outside the 
-        execution environment.
+%     \textbf{Definition: }
+%         Adversary is able to execute malicious code within the context of the pipeline.
+%         The pipeline execution nodes have access to the resources or systems within and outside the 
+%         execution environment.
 
-    \textbf{Impact: }
-        Malicious code is able to run in the context of the pipeline. Probability, this attack would lead to 
-        the exposure of the secret and confidential data.
+%     \textbf{Impact: }
+%         Malicious code is able to run in the context of the pipeline. Probability, this attack would lead to 
+%         the exposure of the secret and confidential data.
         
-    \textbf{Remediation:}
-        \begin{itemize}
-            \item Do not use shared node for pipeline with different levels of sensitivity.
-            \item Where applicable, run pipeline jobs on a separate, dedicated node.
-        \end{itemize}
-    % 6
-    \item \textbf{Insufficient Credential Hygiene}
+%     \textbf{Remediation:}
+%         \begin{itemize}
+%             \item Do not use shared node for pipeline with different levels of sensitivity.
+%             \item Where applicable, run pipeline jobs on a separate, dedicated node.
+%         \end{itemize}
+%     % 6
+%     \item \textbf{Insufficient Credential Hygiene}
 
-    \textbf{Definition: }
-        CI/CD environments are built of multiple systems communicating and authenticating against each other
-        through verifying the credentials. Insufficient credential Hygiene generally means the overly permissive
-        or the credentials are accidentally existed in CI/CD pipelines and the code repositories. Some cases are
-        due to the unrotated credentials issue.  
+%     \textbf{Definition: }
+%         CI/CD environments are built of multiple systems communicating and authenticating against each other
+%         through verifying the credentials. Insufficient credential Hygiene generally means the overly permissive
+%         or the credentials are accidentally existed in CI/CD pipelines and the code repositories. Some cases are
+%         due to the unrotated credentials issue.  
 
-    \textbf{Impact: }
-        The adversary obtains the credentials to deploy the malicious code and artifacts.
-    \textbf{Remediation:}
-        \begin{itemize}
-            \item Conform to the least privilege rule and granted the exact set of permission.
-            \item Avoid sharing the same sets of credentials across multiple contexts.
-            \item Using temporary credentials. If using static credentials, better periodically rotate
-            all the static credentials and detect stale credentials.
-            \item Scoping the credentials to specific source IP to ensure the credentials cannot be used
-            outside the environment even if it is compromised.
-            \item Detect secrets pushed to the code repositories.
-        \end{itemize}
-    % 7
-    \item \textbf{Insecure System Configuration}
+%     \textbf{Impact: }
+%         The adversary obtains the credentials to deploy the malicious code and artifacts.
+%     \textbf{Remediation:}
+%         \begin{itemize}
+%             \item Conform to the least privilege rule and granted the exact set of permission.
+%             \item Avoid sharing the same sets of credentials across multiple contexts.
+%             \item Using temporary credentials. If using static credentials, better periodically rotate
+%             all the static credentials and detect stale credentials.
+%             \item Scoping the credentials to specific source IP to ensure the credentials cannot be used
+%             outside the environment even if it is compromised.
+%             \item Detect secrets pushed to the code repositories.
+%         \end{itemize}
+%     % 7
+%     \item \textbf{Insecure System Configuration}
 
-    \textbf{Definition: }
-        Flaws in the security settings and configuration, which often results in easily compromised by The
-        attackers. For example, the overly permissive network access controls allow the attackers to interact
-        with different domain.
+%     \textbf{Definition: }
+%         Flaws in the security settings and configuration, which often results in easily compromised by The
+%         attackers. For example, the overly permissive network access controls allow the attackers to interact
+%         with different domain.
 
-    \textbf{Impact: }
-        The flaws may be abused by the attacker to manipulate CI/CD flows, and obtain the sensitive tokens.
+%     \textbf{Impact: }
+%         The flaws may be abused by the attacker to manipulate CI/CD flows, and obtain the sensitive tokens.
     
-    \textbf{Remediation:}
-        \begin{itemize}
-            \item Ensure the network access the systems is aligned with the principle of the least access.
-            \item Periodically review all system configuration.
-            \item Ensure permission to pipeline execution nodes follow the least privilege principle. 
-        \end{itemize}
-    % 8
-    \item \textbf{Ungoverned Usage of 3rd Party Services}
+%     \textbf{Remediation:}
+%         \begin{itemize}
+%             \item Ensure the network access the systems is aligned with the principle of the least access.
+%             \item Periodically review all system configuration.
+%             \item Ensure permission to pipeline execution nodes follow the least privilege principle. 
+%         \end{itemize}
+%     % 8
+%     \item \textbf{Ungoverned Usage of 3rd Party Services}
 
-    \textbf{Definition: }   
-        3rd party services are granted access to the organization's assets, such as the CI/CD systems.
+%     \textbf{Definition: }   
+%         3rd party services are granted access to the organization's assets, such as the CI/CD systems.
 
-    \textbf{Impact: }
-        Lack of governance and visibility around 3rd part might allow the write permission on the repository.
-        Then, the flaw is leveraged by the adversary to push the code to the repository.
-    \textbf{Remediation:}
-        \begin{itemize}
-            \item Define the scoped context that the 3rd parties are able to access, and with strict ingress
-            and egress filter.
-            \item Established vetting procedures to verify the trustworthiness of the 3rd parties. Prior to being 
-            granted access to the environment, the approval of being granted to resources should be verified.
-        \end{itemize}
-    % 9
-    \item \textbf{Improper Artifact Integrity Validation}
+%     \textbf{Impact: }
+%         Lack of governance and visibility around 3rd part might allow the write permission on the repository.
+%         Then, the flaw is leveraged by the adversary to push the code to the repository.
+%     \textbf{Remediation:}
+%         \begin{itemize}
+%             \item Define the scoped context that the 3rd parties are able to access, and with strict ingress
+%             and egress filter.
+%             \item Established vetting procedures to verify the trustworthiness of the 3rd parties. Prior to being 
+%             granted access to the environment, the approval of being granted to resources should be verified.
+%         \end{itemize}
+%     % 9
+%     \item \textbf{Improper Artifact Integrity Validation}
 
-    \textbf{Definition: }
-        This flaw allows an attacker with access to the CI/CD process to push malicious code or artifacts down 
-        the pipeline.
+%     \textbf{Definition: }
+%         This flaw allows an attacker with access to the CI/CD process to push malicious code or artifacts down 
+%         the pipeline.
 
-    \textbf{Impact: }
-        Execution of malicious code.
+%     \textbf{Impact: }
+%         Execution of malicious code.
 
-    \textbf{Remediation:}
-        \begin{itemize}
-            \item Validate the integrity of resources all the way from development to production.
-            \item Code signing to prevent unsigned commits from flowing down the pipeline.
-            \item Prior to fetching and using 3rd parties, the hash of the 3rd parties should be calculated and 
-            cross-referenced against the official published hash of the resource provider.
-        \end{itemize}
+%     \textbf{Remediation:}
+%         \begin{itemize}
+%             \item Validate the integrity of resources all the way from development to production.
+%             \item Code signing to prevent unsigned commits from flowing down the pipeline.
+%             \item Prior to fetching and using 3rd parties, the hash of the 3rd parties should be calculated and 
+%             cross-referenced against the official published hash of the resource provider.
+%         \end{itemize}
         
-    % 10
-    \item \textbf{Insufficient logging and visibility}
+%     % 10
+%     \item \textbf{Insufficient logging and visibility}
 
-    \textbf{Definition: }
-        The risk allow the adversary to carry out malicious activities without being detected.
-        For example, the permission modification and execution of builds.
+%     \textbf{Definition: }
+%         The risk allow the adversary to carry out malicious activities without being detected.
+%         For example, the permission modification and execution of builds.
 
-    \textbf{Impact: }
-        Fail to detect a breach may face difficulties in mitigation. Time and data are the most 
-        valuable commodities to an organization under the attack.
+%     \textbf{Impact: }
+%         Fail to detect a breach may face difficulties in mitigation. Time and data are the most 
+%         valuable commodities to an organization under the attack.
 
-    \textbf{Remediation:}
-        \begin{itemize}
-            \item First, be familiar with different systems involved in the potential threats.
-            \item Make sure all relevant logs are enables.
-            \item Shipping logs to a centralized location and creating the alerts to detect malicious activities.
-        \end{itemize}
-\end{enumerate}
+%     \textbf{Remediation:}
+%         \begin{itemize}
+%             \item First, be familiar with different systems involved in the potential threats.
+%             \item Make sure all relevant logs are enables.
+%             \item Shipping logs to a centralized location and creating the alerts to detect malicious activities.
+%         \end{itemize}
+% \end{enumerate}
 
-\subsection{How SLSA Framework Solve Frequent Risks in CI/CD}
-In this section, we will provide some examples to show how SLSA is able to mitigate the risks listed in OWASP Top10.
-SLSA specifies a list of requirements which will enforce secure practice against the most frequent risks.
-In the \textbf{Two-person Reviewed}, it requires the pull request being reviewed by another authentic reviewer.
-The method will make \textbf{Insufficient Flow Control Mechanisms} risk impossible.
-Also, \textbf{Dependencies Complete} is to make sure the SLSA provenance records all dependencies during
-build step. Then, the developers can trust the provenance and inspect all dependencies. This requirement 
-will indirectly defense \textbf{Dependency Chain Abuse}.
+% \subsection{How SLSA Framework Solve Frequent Risks in CI/CD}
+% In this section, we will provide some examples to show how SLSA is able to mitigate the risks listed in OWASP Top10.
+% SLSA specifies a list of requirements which will enforce secure practice against the most frequent risks.
+% In the \textbf{Two-person Reviewed}, it requires the pull request being reviewed by another authentic reviewer.
+% The method will make \textbf{Insufficient Flow Control Mechanisms} risk impossible.
+% Also, \textbf{Dependencies Complete} is to make sure the SLSA provenance records all dependencies during
+% build step. Then, the developers can trust the provenance and inspect all dependencies. This requirement 
+% will indirectly defense \textbf{Dependency Chain Abuse}.
 
 
 
-\subsection{ U.S. Department of Defense Recommend \cite{DoDDefCI/CD2023}}
-\begin{enumerate}
-    \item \textbf{Zero Trust Approach}
+% \subsection{ U.S. Department of Defense Recommend \cite{DoDDefCI/CD2023}}
+% \begin{enumerate}
+%     \item \textbf{Zero Trust Approach}
     
-        No user, endpoint device or process is fully trusted.
+%         No user, endpoint device or process is fully trusted.
 
-    \item \textbf{Strong Cryptographic Algorithm}
+%     \item \textbf{Strong Cryptographic Algorithm}
     
-        Avoid using outdated cryptographic algorithm which poses a threat to CI/CD pipelines.
-        The threat includes sensitive data exposure and keys generated across the CI/CD 
-        pipeline.
+%         Avoid using outdated cryptographic algorithm which poses a threat to CI/CD pipelines.
+%         The threat includes sensitive data exposure and keys generated across the CI/CD 
+%         pipeline.
 
-    \item \textbf{Minimize the Use of Long-Term Credentials}
+%     \item \textbf{Minimize the Use of Long-Term Credentials}
 
-    \item \textbf{Add Signature to CI/CD Configuration and Certify It}
+%     \item \textbf{Add Signature to CI/CD Configuration and Certify It}
 
-        Ensure the code change is continuously signed, and the signature is verified throughout
-        CI/CD process. If the signing identity itself is compromised, it undermines trust.
+%         Ensure the code change is continuously signed, and the signature is verified throughout
+%         CI/CD process. If the signing identity itself is compromised, it undermines trust.
     
-    \item \textbf{Two-Person Rules for all Code Updates}
+%     \item \textbf{Two-Person Rules for all Code Updates}
 
-        The developer checks in the code which should be reviewed and approved by another 
-        developer. 
+%         The developer checks in the code which should be reviewed and approved by another 
+%         developer. 
 
-\end{enumerate}
+% \end{enumerate}
 
 \subsection{in-toto Framework}
 in-toto is an end-to-end security framework aim to protect the software supply chain. It provides a variety
