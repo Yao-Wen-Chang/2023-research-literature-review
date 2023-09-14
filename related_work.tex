@@ -1,10 +1,11 @@
 \section{RELATED WORK}
 In the literature review, first, prerequisite definition of the CI/CD technique will be 
 described. Then, a variety of risks and attacks are categorised based on the three attack 
-surface within the CI/CD pipeline, which are source code repository, build and test, and deploy.
+surface (source code repository, build and test, and deploy) within the CI/CD pipeline.
 Some defense methods introduced in the related work will be aligned with the attacks in this 
-section. Finally, the top ten risks existed in CI/CD pipeline referring to OWASP 2023 will be 
-summarised~\cite{OWASP2023}.
+section. 
+% Finally, the top ten risks existed in CI/CD pipeline referring to OWASP 2023 will be 
+% summarised~\cite{OWASP2023}.
 
 \subsection{Definition of CI/CD}
 CI/CD is a development and deployment process for automatically building and testing code
@@ -16,11 +17,11 @@ combined unit test and integration test against the build. These process will av
 challenges that can happen when waiting for release day to merge changes into the release branch. 
 'CD' defined the process of the releases happened automatically~\cite{DoDDefCI/CD2023}. 
 
-Nowadays, nearly all software applications were built on top of others works, which is called third-parties.
+Nowadays, nearly all software applications were built on top of others works which is the third-parties.
 However, the convenience and capabilities of the third-party source code usually cause cybersecurity 
 risks~\cite{mastrangelo2015use}. Software supply chain attacks aim at injecting code into software
 components including source code base and artifacts, like docker image or executable software,
-to compromise downstream users~\cite{ladisa2023sok}. 
+to compromise downstream users~\cite{ladisa2023sok, OWASP2023}. 
 Some risks and counter method will be introduced in the following sections.
 
 \subsection{Three Main Stage in CI/CD}
@@ -28,6 +29,8 @@ In the following three subsections,
 we will categorise some attack events and potential attack methods into the high-level representation 
 of three main categories within the CI/CD pipeline. This categorisation allows us to gain a deeper understanding of 
 the security challenges and risks associated with each phase of the software development and delivery process.
+There are many strategies provided by the researchers to grapple with the tough issues presented in the software 
+supply chain. 
 
 \subsubsection{Source Code Repository}
 Java Virtual Machine (JVM) executes Java bytecode and provides strong safety
@@ -36,26 +39,42 @@ security issue if it is misused by the developers. The research~\cite{mastrangel
 studied a large repository, Maven, and analyzed the compiled Java code. The 
 security issues include violating type safety, crashing the virtual machine (VM), 
 uninitialized objects and so on. These misuse might impact third-party package 
-management service. 
+management service. Without a manual code review from the maintainer and security inspection through automatic testing on Git repository
+provider, the misused practice will not be discovered and will end up being merged in the release
+artifacts. Our \textbf{Macaron} framework provide some checks to ensure the artifacts update and release
+is working through a proper inspection process. Thus, customers can trust the artifact they consume.
 
-The research\cite{garrett2019detecting} proposed anomaly detection method to cluster and detect 
+The research~\cite{garrett2019detecting} proposed anomaly detection method to cluster and detect 
 the suspicious update JavaScript code. It shows that this unsupervised machine learning 
 clustering method is able to reduce the manual review effort by 89 percent considering the worse
 case that all updates are not malicious. However, the data is skewed since more unsuspicious updates
-existed in the dataset. Also, the researcher divide the features based on static method by reviewing
-some packages and find out the malicious code. This method is not cost-efficient and only specific
-to the programming languages where there are models already trained. 
+existed in the dataset. Also, the researchers choose the features based on a static method by reviewing some packages and identifying the malicious code. 
+This method is less cost-efficient and only specific to the programming languages where there are models already trained. 
 
-Nevertheless, the author in~\cite{boucher2023trojan} provide an attack approach to bypass the manual
-code review. With the Trojan source attacks, the attacker can embed seemingly unsuspicious Unicode into
+Nevertheless, the author in~\cite{boucher2023trojan} provide an attack approach to bypass the manual code review. 
+With the Trojan source attacks, the attacker can embed seemingly unsuspicious Unicode into
 the comments and indirectly modify the order of the code causing unexpected results. 
-This would bypass the method provided by~\cite{garrett2019detecting}, 
+Well-designed Unicode payload would bypass the method provided by~\cite{garrett2019detecting}, 
 since this feature is not recognised by the model. The author recommends the developers to include 
 Regex detection method in the 'Build' stage, since this malicious code is triggered by the compiled code.
 The fundamental way to avoid being compromised by the Trojan source attack is through banning the 
 Unicode when it is not required in the projects. Even though recommend defense strategies 
 are able to counteract this attack, but the method only deal with the specific attack against the 
-CI/CD pipeline.
+CI/CD pipeline. The method followed by \textbf{Macaron} is designed based on the Regex concept. Our approach
+will further diagnosis the health of the code base with the automation scanning tools.
+
+How if the update is stealthy and in the guise of the valid patch, could the manual code review by the 
+professional repository maintainer and the powerful automation tools be capable of filtering out the 
+malicious pull requests? Probably not. According to the research~\cite{wu2021feasibility},
+there are multiple immature vulnerabilities existed in the repositories, which are usually dismissed by the maintainers, 
+since they are not harmful to the software execution. However, if the remaining conditions are introduced by
+the contributors intentionally or unintentionally, the performance of the artifacts will not live up to the 
+maintainers' expectations. 
+The author provides some effective mitigation including advanced static and dynamic analysis of the artifacts or
+committer liability which is provided in the SLSA provenance. Based on quantifying the catch rate, the author is
+able to understand how their attack method is possible to bypass the code review of the maintainer. In our research, 
+we will also implement similar method to detect the false positive rate of our detector, the manual code review will
+be conducted by ourselves.  
 
 \subsubsection{Build/Test}
 % Inject bad Dependency
@@ -63,7 +82,7 @@ CI/CD pipeline.
 % Compromise CI/CD server
 Malicious code injection can occur during the build of the pre-built components, especially in compiled languages.
 This attack method is favored by the attackers, since the detection of the pre-built components and compiled code is 
-typically more difficult~\cite{ladisa2023journey}. Therefore, opting for building package directly from 
+typically more difficult~\cite{ladisa2023journey}. Opting for building package directly from 
 source code is a measure to avoid this risk.
 
 In~\cite{ohm2020backstabber}, 
@@ -79,6 +98,8 @@ This research paper implements the taxonomy method to deduce possible trigger po
 the possible attacks occurring within each CI/CD stage. This method provides developers a clear 
 and completed checklist to prevent the potential vulnerabilities. However, this paper does not
 provide the completed counter measure against the attacks.
+\textbf{SLSA} indirectly addresses 'Typosquatting' issue by providing the provenance to check the origin of
+the artifacts. 
 
 \subsubsection{Deploy}
 % Bypass Review
@@ -90,14 +111,52 @@ attacker even trying to remove various repositories. Some good practices are imp
 in this repository. For example, the audit logs function provided by GitHub enables the Gentoo organization
 to respond quickly to prevent from the extra impact. However, the Gentoo GitHub organization does not
 implement 2FA to prevent the accounts from being fully compromised. Also, it does not manage the identities
-correctly.
+correctly. \textbf{SLSA LEVEL 4} ensure the contributors are authenticated through 2FA, and the pull requests
+must be reviewed by another authenticated reviewers.
 
 \cite{vu2021lastpymile} presents a framework to detect the discrepancies of the packages on 
 between source repositories and package managers. This framework can be cooperated with other tools to improve
 efficient and effective. However, the research does not consider the situation that there are no
 discrepancies between the source code and the published packages, but the code have already been maliciously injected.
 In the framework we deploy in this research, the provenance can ensure there are no suspicious contributors contributing
-to the code base. 
+to the code base, because the detail of the artifact from building to deployment are all be recorded in the provenance.
+
+
+
+\subsection{in-toto Framework}
+in-toto is an end-to-end security framework aim to protect the software supply chain. It provides a variety
+of mechanism for each steps in the CI/CD to check the integrity of the previous steps. Cryptography and hash 
+function are implemented in in-toto.
+
+\textbf{Layout} is a file format to document the actors, timestamp and actions with each step of the supply chain.
+It provides the information for downstream steps to verify. This information is the cryptographic hash of action, actors and some other security
+related data. Therefore, the downstream steps can verify the integrity based on the hash. This is the high level structure 
+compared to Link Metadata.
+
+\textbf{Link MetaData} is a lower level structure compared to \textbf{Layout}, which provides much detailed information about each action.
+
+\textbf{SLSA} framework adopted in our research is based on the in-toto framework.
+
+\subsection{Conclusion}
+Despite the previously introduced methods seems to address all the security issues
+existed in the code base and within the CI/CD, some of them may overemphasize one 
+particular approach to address software supply chain security without considering 
+compounding factors that impact risk.
+Some projects aim at providing single solution that conﬂates multiple 
+objectives~\cite{melara2022software}.
+For instance, SAP's Risk Explorer is designed to cultivate a community of users 
+and contributors to the taxonomy. Users can explore the taxonomy by collapsing and 
+expanding nodes in an attack tree. Detailed information about attack vectors, 
+references, and safeguards is presented beneath the tree. 
+This tool addresses all potential risks associated with an entire CI/CD pipeline, 
+as referenced in~\cite{ladisa2023journey}.
+
+Similarly, the in-toto framework is dedicated to ensuring the integrity of the supply 
+chain pipeline while harmonizing multiple objectives.
+
+The framework employed in this research is based on Supply Chain Level Security 
+Artifacts (SLSA). In the following section, we will introduce and discuss Supply Chain 
+Level Security Artifacts (SLSA) in more detail.
 
 % \subsection{OWASP Top 10 CI/CD Risks\cite{OWASP2023}}
 % \begin{enumerate}[label=(\arabic*)]
@@ -363,37 +422,4 @@ to the code base.
 
 % \end{enumerate}
 
-\subsection{in-toto Framework}
-in-toto is an end-to-end security framework aim to protect the software supply chain. It provides a variety
-of mechanism for each steps in the CI/CD to check the integrity of the previous steps. Cryptography and hash 
-function are implemented in in-toto.
 
-\textbf{Layout} is a file format to document the actors, timestamp and actions with each step of the supply chain.
-It provides the information for downstream steps to verify. This information is the cryptographic hash of action, actors and some other security
-related data. Therefore, the downstream steps can verify the integrity based on the hash. This is the high level structure 
-compared to Link Metadata.
-
-\textbf{Link MetaData} is a lower level structure compared to \textbf{Layout}, which provides much detailed information about each action.
-
-\textbf{SLSA} framework adopted in our research is based on the in-toto framework.
-
-\subsection{Conclusion}
-Despite the previously introduced methods seems to address all the security issues
-existed in the code base and within the CI/CD, some of them may overemphasize one 
-particular approach to address software supply chain security without considering 
-compounding factors that impact risk.
-Some projects aim at providing single solution that conﬂates multiple 
-objectives~\cite{melara2022software}.
-For instance, SAP's Risk Explorer is designed to cultivate a community of users 
-and contributors to the taxonomy. Users can explore the taxonomy by collapsing and 
-expanding nodes in an attack tree. Detailed information about attack vectors, 
-references, and safeguards is presented beneath the tree. 
-This tool addresses all potential risks associated with an entire CI/CD pipeline, 
-as referenced in~\cite{ladisa2023journey}.
-
-Similarly, the in-toto framework is dedicated to ensuring the integrity of the supply 
-chain pipeline while harmonizing multiple objectives.
-
-The framework employed in this research is based on Supply Chain Level Security 
-Artifacts (SLSA). In the following section, we will introduce and discuss Supply Chain 
-Level Security Artifacts (SLSA) in more detail.
