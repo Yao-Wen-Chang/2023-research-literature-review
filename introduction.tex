@@ -8,15 +8,16 @@ steal valuable credentials, or disrupt the original functioning of applications\
 Recent incidence like the infection of SolarWind's Orion platform \cite{ladisa2023sok, 
 peisert2021perspectives} which is used to monitor and manage the network is downloaded by 
 thousands of customers, including U.S. government agencies, critical infrastructure providers, 
-and private companies. 
+and private companies. The malicious actors use supply chain attack to insert malicious code into their system,
+then SolarWind begin to send out the update with malicious code. 
 
 Another malicious attack target the credentials from a contributor of the esline-scope package.
-The attackers updated the malicious code within the code base, which will end up stealing
+The attackers updated the malicious code by merging the code directly into the code base, which will end up stealing
 multiple credentials from the downstream users \cite{eslint2018}.
 
 Sometimes, the risks are due to the situation that the consumers are not aware of the importance 
 of frequent update of the dependencies which are consumed in their packages. In this situation,
-the attackers is able to discover the unsafe dependencies on the git repositories, then looking for
+the attackers are able to discover the unsafe dependencies' version on the Git repositories, then looking for
 other packages depend on these unsafe outdated dependencies. It is simple to find out how the bugs being
 fixed on the original dependencies' repositories, and directly compromise the downstream users with the bugs.
 Therefore, a smart alert system~\cite{wang2020empirical} to detect if the older version contains
@@ -25,8 +26,10 @@ in different stages to automatically detect unsafe version, and update the depen
 are sometimes not aware of using the older dependencies will result in tremendous attack. With this automatic tool,
 it will support developers to solve the issues.
 
+The framework adopted in our research possesses the capability to mitigate the aforementioned exploitation. 
+
 In Section 2, we will explore the realm of Software Supply Chain Security, which is the prerequisite
-for understanding the key components of the Macaron Framework implemented in our research.
+for understanding the key components of the Macaron framework implemented in our research.
 We dissect the Software Supply Chain, emphasizing the critical importance of provenance. 
 Also, we will explain the nuanced difference between Software Bill of Materials (SBOM) and the SLSA Provenance.
 Finally, we investigate the intricacies of the Build Model and the Security Levels specified by the SLSA framework.
@@ -35,8 +38,9 @@ In Section 3, we delve into the related work on the CI/CD pipeline security. Thr
 attack surfaces within CI/CD pipeline and the counter measures are introduced here. We will introduce the \textbf{in-toto}
 framework, and explain why it is related to our framework. These will provide a comprehensive foundation for our research. 
 
-
-In Section 4, we delineate our research aims and objectives. Our overarching aim is to fortify the security aspects of CI/CD pipelines. 
+In Section 4, Our research questions are defined in this section. The reason behind these questions will be described.
+Also, we provide the method of data collection and how we are going to evaluate our framework with our defined metric. 
+We delineate our research aims and objectives. Our overarching aim is to fortify the security aspects of CI/CD pipelines. 
 And our objectives include how we are going to achieve our aims. Furthermore, the current research 
 progress and the research gap we find out in related works will be improved by our contribution.
 

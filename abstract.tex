@@ -1,19 +1,23 @@
 \begin{abstract}
-The popularity of the open-source package surged, attracting more and more projects that are prone 
-to deploying 3rd-party artifacts.
-On the other hand, the increasing popularity of automatic CI/CD systems supports developers in 
-building their projects at an extremely fast pace.
-However, this convenience and the addition of new features increase the attack surface, 
-providing attackers with extra ways to target downstream users
+  The popularity of open-source packages has experienced a significant surge, attracting an ever-growing number of projects that rely on the deployment of third-party artifacts. 
+  Simultaneously, the rising prevalence of automatic Continuous Integration/Continuous Delivery (CI/CD) systems has empowered developers to accelerate their project development 
+  processes dramatically. However, this convenience, coupled with the continuous addition of new features, has expanded the attack surface, offering malicious actors additional 
+  avenues to target downstream users.
 
-This literature review will introduce Continuous Integration/Continuous Delivery (CI/CD).
-Also, potential attack surfaces and how the malicious attackers exploit these attack surfaces
-to compromise CI/CD pipelines will be covered in this review. Multiple methods and 
-frameworks are going to be introduced to counter the attack. 
-Some method target risks at certain stage in the pipeline, and some cover the whole pipeline.
+  This literature review that we are going to discuss in the related work section serves as an introduction to the world of Continuous Integration/Continuous Delivery (CI/CD). 
+  It delves into the potential attack surfaces that exist within CI/CD pipelines and explores how malicious attackers 
+  exploit these vulnerabilities to compromise these critical systems. Throughout this review, we will introduce various 
+  methods and frameworks designed to mitigate these threats. Some of these methods target specific risks at particular 
+  stages in the pipeline, while others provide comprehensive coverage across the entire CI/CD process.
+  
+  In our research, we will contribute to Macaron framework and further to adopt it to analyse the vulnerabilities in the repositories during
+  the software supply chain. This framework is built upon the principles of the Supply 
+  Chain Level Security Artifacts (SLSA) framework. We will design our research methodology to involve the retrieval of 
+  third-party repositories from GitHub as our primary source of research data, analysis through Macaron, and scanning source code through downstream automation scanner.
+  At the end of the research, we will evaluate the results through the metric we defined in this research proposal. 
 
-In our research, we are going to adopt the framework, Macaron, which is based on the Supply Chain Level Security Artifacts 
-(SLSA) framework. We will design our method to fetch 3rd party repository from GitHub as our research data.  
+  Our research aims to contributor a framework for scrutinizing artifacts and ensuring their safe passage 
+  through the supply chain. We will also provide the scanning results and engage in discussions 
+  regarding the implementation of best practices and the development of a secure software supply 
+  process.  
 \end{abstract}
-
-
