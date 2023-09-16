@@ -1,5 +1,5 @@
 \section{RELATED WORK}
-In the literature review, first, prerequisite definition of the CI/CD technique will be 
+In the beginning of the literature review, prerequisite definition of the CI/CD technique will be 
 described. Then, a variety of risks and attacks are categorised based on the three attack 
 surface (source code repository, build and test, and deploy) within the CI/CD pipeline.
 Some defense methods introduced in the related work will be aligned with the attacks in this 
@@ -8,16 +8,16 @@ section.
 % summarised~\cite{OWASP2023}.
 
 \subsection{Definition of CI/CD}
-CI/CD is a development and deployment process for automatically building and testing code
+CI/CD is a development and deployment process for automatic building and testing code
 changes that support organizations maintain a consistent code base, then automatically shipping 
 the artifact to the target customers. 'CI' involves developers frequently merging code changes 
-into a central repository where automated builds and tests run. 'Build' is the process of 
-converting source code into executable code. Then, running the automated tests which usually 
-combined unit test and integration test against the build. These process will avoid integration 
+into a central repository where automatic builds and tests run. 'Build' is the process of 
+converting source code into executable code. Then, running the automatic tests which usually 
+combined unit test and integration test against unexpected results during the build process. These process will avoid integration 
 challenges that can happen when waiting for release day to merge changes into the release branch. 
 'CD' defined the process of the releases happened automatically~\cite{DoDDefCI/CD2023}. 
 
-Nowadays, nearly all software applications were built on top of others works which is the third-parties.
+Nowadays, nearly all software applications were built on top of others works which are the third-party packages.
 However, the convenience and capabilities of the third-party source code usually cause cybersecurity 
 risks~\cite{mastrangelo2015use}. Software supply chain attacks aim at injecting code into software
 components including source code base and artifacts, like docker image or executable software,
@@ -42,7 +42,9 @@ uninitialized objects and so on. These misuse might impact third-party package
 management service. Without a manual code review from the maintainer and security inspection through automatic testing on Git repository
 provider, the misused practice will not be discovered and will end up being merged in the release
 artifacts. Our \textbf{Macaron} framework provide some checks to ensure the artifacts update and release
-is working through a proper inspection process. Thus, customers can trust the artifact they consume.
+is working through a proper inspection process. The merged code should be reviewed by at least one other authenticated reviewers.
+Thus, customers can trust the artifact they consume. However, the SLSA checklist does not make sure the reviewers
+are capable of detecting the unsafe function call.
 
 The research~\cite{garrett2019detecting} proposed anomaly detection method to cluster and detect 
 the suspicious update JavaScript code. It shows that this unsupervised machine learning 
@@ -60,7 +62,7 @@ Regex detection method in the 'Build' stage, since this malicious code is trigge
 The fundamental way to avoid being compromised by the Trojan source attack is through banning the 
 Unicode when it is not required in the projects. Even though recommend defense strategies 
 are able to counteract this attack, but the method only deal with the specific attack against the 
-CI/CD pipeline. The method followed by \textbf{Macaron} is designed based on the Regex concept. Our approach
+CI/CD pipeline. The downstream method followed by \textbf{Macaron} is designed based on the Regex concept. Our approach
 will further diagnosis the health of the code base with the automation scanning tools.
 
 How if the update is stealthy and in the guise of the valid patch, could the manual code review by the 
@@ -71,7 +73,7 @@ since they are not harmful to the software execution. However, if the remaining 
 the contributors intentionally or unintentionally, the performance of the artifacts will not live up to the 
 maintainers' expectations. 
 The author provides some effective mitigation including advanced static and dynamic analysis of the artifacts or
-committer liability which is provided in the SLSA provenance. Based on quantifying the catch rate, the author is
+committer liability which is what the SLSA provenance provides. Based on quantifying the catch rate, the author is
 able to understand how their attack method is possible to bypass the code review of the maintainer. In our research, 
 we will also implement similar method to detect the false positive rate of our detector, the manual code review will
 be conducted by ourselves.  

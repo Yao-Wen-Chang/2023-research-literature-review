@@ -18,7 +18,7 @@ used in their project.
 In order to efficiently check the safety of the artifacts, our research will focus on contributing to the Macaron
 Framework which is based on SLSA requirements.
 
-\textbf{Macaron} provides trusted artifact information from the source code to the deployment stage. However, we
+\textbf{Macaron} provides trusted artifact information which is collected from the source code build to the deployment stage. However, we
 are also interested in the malicious contents provided by the attackers. Also, how these updates would affect the 
 artifacts consumers.     
 
@@ -58,10 +58,12 @@ To quantify the false positive, we decide to use the \textbf{precision} concept,
 \[
     \text{Precision} = \frac{TP}{TP + FP}
 \]
-Also, time spending is of significance. Therefore, we will consider time-consuming, and the severity of the malicious code 
+Additionally, time efficiency holds great importance in our evaluation. Therefore, we will consider time-consuming, and the severity of the malicious code 
 referring to CVE. Finally, we introduce the security metric as follows. The metric will be implemented to compare our framework
-to another static scanner. 
-
+to another static scanners. We will use static scanner to scan all the repositories. On the other hand, we will employ Macaron to filter out repositories 
+deemed unsuspicious, and then subject these selected repositories to the same set of static scanners. 
+In the final analysis, we will evaluate and compare the effectiveness of these two approaches using 
+our defined metrics.
 
 \begin{equation}
     SM = (W_p \cdot P) * (W_{tf} \cdot TF) * (\frac{W_{tc}}{TC}) * (W_s \cdot S)
